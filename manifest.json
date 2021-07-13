@@ -1,0 +1,10 @@
+{
+	"id": "obsidian-dnd-generator",
+	"name": "Dnd Generator Plugin",
+	"version": "0.0.1",
+	"minAppVersion": "0.9.12",
+	"description": "Dnd entity Generator plugin using https://kassoon.com. Can generate Towns and NPCs",
+	"author": "findus_l",
+	"authorUrl": "https://github.com/findusl",
+	"isDesktopOnly": false
+}
