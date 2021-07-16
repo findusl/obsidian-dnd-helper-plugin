@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="obsidian-dnd-generator-plugin-0.0.1-SNAPSHOT">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="obsidian-dnd-generator-plugin-0.0.1-SNAPSHOT.jar" />
+  </artifact>
+</component>

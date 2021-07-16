@@ -1,3 +1,3 @@
 
-rootProject.name = "Obsidian-Dnd-Generator-Plugin"
+rootProject.name = "obsidian-dnd-generator-plugin"
 

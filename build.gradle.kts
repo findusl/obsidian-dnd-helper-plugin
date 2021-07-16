@@ -1,11 +1,10 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 
 plugins {
     kotlin("js") version "1.5.20"
 }
 
-group = "de.example"
-version = "1.0-SNAPSHOT"
+group = "de.lehrbaum"
+version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -31,4 +30,14 @@ kotlin {
             }
         }
     }
+}
+
+val pluginPath = "/Users/slehrbaum/OneDrive/My_DND5e_Campaign/.obsidian/plugins/dnd-generator"
+val pluginFolder = file(pluginPath)
+
+val copyPluginTask by tasks.register<Copy>("copyToObsidianVault") {
+    from(layout.buildDirectory.file("distributions/main.js"))
+    into(pluginFolder)
+    dependsOn("build")
+    group = "obsidian"
 }
