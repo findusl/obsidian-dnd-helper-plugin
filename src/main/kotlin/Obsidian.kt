@@ -5,7 +5,6 @@ import org.khronos.webgl.ArrayBuffer
 import org.w3c.dom.DocumentFragment
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.Node
 import kotlin.js.Promise
 
 open external class Component {
@@ -18,7 +17,6 @@ open external class Plugin(
     manifest: PluginManifest
 ) : Component {
     open var app: App
-    open var manifest: PluginManifest
     open fun addCommand(command: Command): Command
     open fun addSettingTab(settingTab: PluginSettingTab)
     open fun loadData(): Promise<Any>
@@ -26,15 +24,6 @@ open external class Plugin(
 }
 
 external interface PluginManifest {
-    var dir: String?
-    var id: String
-    var name: String
-    var author: String
-    var version: String
-    var minAppVersion: String
-    var description: String
-    var authorUrl: String?
-    var isDesktopOnly: Boolean?
 }
 
 open external class PluginSettingTab(app: App, plugin: Plugin) : SettingTab
@@ -43,7 +32,7 @@ open external class App {
     open var vault: Vault
 }
 
-external open class Vault : Events {
+open external class Vault : Events {
     open var configDir: String
     open fun getName(): String
     open fun getAbstractFileByPath(path: String): TAbstractFile?
@@ -96,7 +85,7 @@ external interface DataWriteOptions {
     var mtime: Number?
 }
 
-external open class Events {
+open external class Events {
     open fun on(name: String, callback: (data: Any) -> Any, ctx: Any = definedExternally): EventRef
     open fun off(name: String, callback: (data: Any) -> Any)
     open fun offref(ref: EventRef)
@@ -104,27 +93,25 @@ external open class Events {
     open fun tryTrigger(evt: EventRef, args: Array<Any>)
 }
 
-external open class TAbstractFile {
+open external class TAbstractFile {
     open var vault: Vault
     open var path: String
     open var name: String
     open var parent: TFolder
 }
 
-external open class TFile : TAbstractFile {
+open external class TFile : TAbstractFile {
     open var stat: FileStats
     open var basename: String
     open var extension: String
 }
 
-external open class TFolder : TAbstractFile {
+open external class TFolder : TAbstractFile {
     open var children: Array<TAbstractFile>
     open fun isRoot(): Boolean
 }
 
 external interface FileStats {
-    var ctime: Number
-    var mtime: Number
     var size: Number
 }
 

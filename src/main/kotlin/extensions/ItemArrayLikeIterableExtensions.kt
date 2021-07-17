@@ -1,3 +1,5 @@
+package extensions
+
 import org.w3c.dom.ItemArrayLike
 
 fun <T> ItemArrayLike<T>.iterator(): Iterator<T> = IteratorFromItemArrayLike(this)

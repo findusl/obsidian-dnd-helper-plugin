@@ -1,3 +1,3 @@
 data class Settings(
-    var townBasePath: String = ""
+    var townBasePath: String = "Places/Towns"
 )

@@ -1,6 +1,6 @@
-import kotlinx.browser.window
-import org.w3c.dom.parsing.DOMParser
-import org.w3c.fetch.Request
+import extensions.CommandImpl
+import kotlinx.coroutines.*
+import parsers.KassoonTownParser
 import serializers.TownNotesSerializer
 
 @Suppress("EXPERIMENTAL_IS_NOT_ENABLED") // works just fine, stop complaining
@@ -8,62 +8,61 @@ import serializers.TownNotesSerializer
 @JsExport
 @JsName("default")
 class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
+    // I doubt this has much effect in Javascript, but maybe it cancels something
+    private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
-    @Suppress("NON_EXPORTABLE_TYPE") // I'm not exporting it, just used internally
-    // TODO move logic to different file to limit what is exported. maybe with delegation
+    private val websiteLoader = WebsiteLoader()
+
+    @Suppress("NON_EXPORTABLE_TYPE", "UNUSED_PARAMETER") // I'm not exporting it, just used internally
     var settings: Settings = Settings()
-        set(value) = saveSettings()
+        set(value) = coroutineScope.launch { saveSettings() }.run {  } // how to return unit from this otherwise?
 
     override fun onload() {
-        this.loadSettings()
+        coroutineScope.launch {
+            loadSettings()
+        }
 
         Notice("Loading D&D Generator plugin!")
 
         addSettingTab(SettingsTab(app, this))
 
-        addCommand(CommandImpl(
+        addCommand(
+            CommandImpl(
             id = "dnd-generate-town",
             name = "Generate random town",
             icon = "dice",
-            callback = {
-                parseTownWebsite("http://localhost:8010/proxy/dnd/town-generator/10/518707/")
-            }
-        ))
+            callback = this::generateRandomTown
+        )
+        )
+    }
+
+    private fun generateRandomTown() = coroutineScope.launch {
+        try {
+            val town = parseKassoonTownWebsite("/dnd/town-generator/10/518707/")
+            TownNotesSerializer(app.vault, settings, town).serialize()
+        } catch (e: Exception) {
+            Notice("There was an error trying to parse the town. Maybe the Kassoon website changed slightly, that breaks it.")
+            e.printStackTrace()
+        }
     }
 
     override fun onunload() {
         Notice("Unloading plugin!")
+        coroutineScope.cancel("Unloading plugin.")
     }
 
-    private fun parseTownWebsite(url: String) {
-        loadWebsite(url) {
-            val document = DOMParser().parseFromString(it, "text/html")
-            val town = document.parseKassoonTown()
-            TownNotesSerializer(app.vault, settings, town).serialize()
-        }
+    private suspend fun loadSettings() {
+        this.settings = this.loadData().await() as? Settings ?: Settings()
     }
 
-    private fun loadSettings() {
-        this.loadData().then {
-            this.settings = it as? Settings ?: Settings()
-        }
+    private suspend fun saveSettings() {
+        saveData(this.settings).await()
     }
-    /*
-    TODO see if it works with coroutines like this:
-     suspend fun <T> Promise<T>.await(): T = suspendCoroutine { cont ->
-        then({ cont.resume(it) }, { cont.resumeWithException(it) })
-    }
-     */
 
-    private fun saveSettings() {
-        saveData(this.settings);
+    private suspend fun parseKassoonTownWebsite(url: String): Town {
+        val document = websiteLoader.loadKassoonWebsite(url)
+        println("Got document from $url")
+        val townParser = KassoonTownParser()
+        return townParser.parseKassoonTown(document)
     }
-}
-
-private fun loadWebsite(url: String, handler: (String) -> Unit) {
-    window.fetch(Request(url)).then(onFulfilled = {
-        it.text().then(onFulfilled = {
-            handler(it)
-        })
-    })
 }

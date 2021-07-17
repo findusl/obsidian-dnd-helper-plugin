@@ -1,0 +1,231 @@
+source text is
+
+<h1>Random Town Generator</h1>
+<p>Randomly generates towns, shops, NPCs</p>
+<p></p><form action="/dnd/town-generator/" method="post">
+    <select name="townSize" onchange="this.form.submit()">
+        <option value="0">Any Size</option>
+        <option value="1" selected="">Hamlet</option>
+        <option value="2">Village</option>
+        <option value="3">Town</option>
+        <option value="4">City</option>
+        <option value="5">Capital</option>
+    </select>
+
+    <select name="demographics" onchange="if (this.value==4) $('customDemographics').style.display='block';else this.form.submit()">
+        <option value="0">Random Races</option>
+        <option value="1">DMG Races</option>
+        <option value="2">One Race Only</option>
+        <option value="3">Normalized DMG</option>
+        <option value="4">Custom</option>
+    </select>
+
+    <p id="customDemographics" style="display:none;">
+        Instructions: Race## to customize race demographics. For example: "Human50 Elf50" will give 50% Humans and 50% Elves. "Gnome25 Dwarf25 Halfling25 Half-Elf25" will give 25% of each.
+        <input type="text" placeholder="Custom extensions.String" name="customDemographics" value="">
+    </p>
+
+    Use Seed: <input type="checkbox" name="townUseSeed" checked=""> Seed: <input type="text" name="townSeed" style="width:75px;" value="518707">
+
+    <input type="submit" value="Go">
+</form><p></p>
+
+<h2>Rothemell, Hamlet <a class="npcPerma" href="/dnd/town-generator/10/518707/">[Permalink]</a></h2>
+<form method="get" style="float:right;clear:both;" action="/dnd/saved-generators/L2RuZC90b3duLWdlbmVyYXRvci8xMC81MTg3MDcv/" target="_blank"><input type="submit" value="Save"></form>
+<!--div id="canvHold" style="position:relative;width:calc(100vw - 20px);line-height:16px;">
+	<canvas id="myCanvas" width="1000" height="1000" style="border:1px solid #000;"></canvas>
+</div-->
+
+<p>
+    Population: <span id="popNumSpan">90</span>, Size: 3 acres<br>
+    Demographics: Halfling (46%), Dwarf (20%), Elf (10%), Human (9%), Half-Orc (5%), Gnome (4%), Half-Elf (3%)<br>
+    <a target="_blank" href="/dnd/campaign-generator/">Extra Details</a><br>
+    <a target="_blank" href="/dnd/interesting-locations/">Nearby Points of Interest</a><br>
+    Wealth: 450 gp. Max value for sale: 30 gp. Max pawn value: 158 gp<br>
+</p>
+<p>
+    <a href="javascript:void(0)" onclick="buildDetailedDemos()">Detailed Demographics</a>
+</p><div style="display:none;" id="detailDemoDiv"></div>
+<p></p>
+<p id="townDesc">
+    was built atop ancient ruins, and is known for its greedy merchants. The ruler (<a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=2&amp;useSeed=on&amp;seed=643522">William Woodhouse, Male Human</a>) is fair and just, respected by the populace. There is some tension between the races.</p>
+<p>Defenses: The hamlet is surrounded by no walls. A militia of 9 can be mustered in case of attack. The sheriff is <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=2&amp;useSeed=on&amp;seed=811164">Agnes Kane, Female Human</a>.
+
+</p><p>
+    <a href="#townTavern">Tavern</a> | <a href="#townJeweler">Jeweler</a> | <a href="#townCottage">Cottage</a> | <a href="#townHouse">House</a></p>
+
+<h2>Shops</h2>
+<p>
+</p><p id="townTavern"><strong>Tavern: Adoring Bull</strong><br>
+    <u>Owner:</u> Gerard Staurheim, Male Halfling <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=7&amp;reqOccupation=Barkeep&amp;useSeed=on&amp;seed=997470552">[Details]</a></p>
+<u>Location:</u> In the main street near the town gate. The street outside is lined with a low stone wall.<br>
+<u>Description:</u> The tavern is a timber framed and sprawling single storey building, with a black shingled roof and roughly hewn wooden furniture. It contains a large bookshelf filled with books and messy tables covered in cutlery and leftover food. <br>
+<a target="_blank" href="/dnd/random-plot-hooks-generator/">Quests and Rumors</a> |
+<a target="_blank" href="/dnd/house-map-generator/3-8-100-100-85037-997470552-7-Barkeep/">Map</a>
+<ul style="margin:0;"><u>Specials:</u>
+    <li>Phoenix Steamed Bun and a Tankard of Bitter (4 sp)</li><li>Beef Sandwich with Crowberry Tart and a Coffee (5 sp)</li><li>Boar Pie and a Tankard of Cider (4 sp)</li></ul><br>
+<ul style="margin:0;"><u>Other Patrons:</u>
+    <li>Hadwisa Cooper, Female Elf <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=4&amp;useSeed=on&amp;seed=504102">[Details]</a></li><li>Hubert Trowbridge, Male Human <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=2&amp;useSeed=on&amp;seed=463469">[Details]</a></li></ul>
+<p></p><hr>
+
+<div style="display:none;">
+    <p id="townSmith"><strong>Blacksmith: </strong><br>
+        <u>Owner:</u> Yvonne Jenkins, Female Halfling <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=7&amp;reqOccupation=Blacksmith&amp;useSeed=on&amp;seed=707710">[Details]</a></p>
+    <u>Location:</u> <br>
+    <u>Description:</u> <br>
+    <a target="_blank" href="/dnd/house-map-generator/4-8-100-100-200286-707710-7-Blacksmith/">Map</a>
+    <ul style="margin:0;"><u>Specials:</u>
+    </ul><br>
+    <ul style="margin:0;"><u>Other Patrons:</u>
+        <li>Ida Harris, Female Elf <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=4&amp;useSeed=on&amp;seed=19973">[Details]</a></li></ul>
+    <p></p><hr></div>
+
+<div style="display:none;">
+    <p id="townAlchemist"><strong>Alchemist: </strong><br>
+        <u>Owner:</u> Norman Toti, Male Halfling <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=7&amp;reqOccupation=Alchemist&amp;useSeed=on&amp;seed=129530">[Details]</a></p>
+    <u>Location:</u> <br>
+    <u>Description:</u> <br>
+    <a target="_blank" href="/dnd/house-map-generator/4-8-100-100-235306-129530-7-Alchemist/">Map</a>
+    <ul style="margin:0;"><u>Specials:</u>
+    </ul><br>
+    <ul style="margin:0;"><u>Other Patrons:</u>
+        <li>None</li></ul>
+    <p></p><hr></div>
+
+<div>
+    <p id="townJeweler"><strong>Jeweler: The Sapphire Trinkets</strong><br>
+        <u>Owner:</u> Henry Dukakis, Male Dwarf <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=3&amp;reqOccupation=Jeweler&amp;useSeed=on&amp;seed=732682">[Details]</a></p>
+    <u>Location:</u> In a residential area known for its suspicious residents. The street outside is adjacent to a large home.<br>
+    <u>Description:</u> The jeweler is a wooden tower, with a small fenced yard and a big brick chimney. It contains a number of crates stacked along the back wall and many small candles hanging from the ceiling. <br>
+    <a target="_blank" href="/dnd/house-map-generator/4-8-100-100-736149-732682-3-Jeweler/">Map</a>
+    <ul style="margin:0;"><u>Specials:</u>
+        <li>Exquisite Necklace (5 gp)</li><li>Exquisite Earrings (4 gp)</li><li>Exquisite Earrings (4 gp)</li></ul><br>
+    <ul style="margin:0;"><u>Other Patrons:</u>
+        <li>None</li></ul>
+    <p></p><hr></div>
+
+<div style="display:none;">
+    <p id="townEnchanter"><strong>Enchanter: </strong><br>
+        <u>Owner:</u> Jacoba Durkin, Female Human <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=2&amp;reqOccupation=Enchanter&amp;useSeed=on&amp;seed=946673">[Details]</a></p>
+    <u>Location:</u> <br>
+    <u>Description:</u> <br>
+    <a target="_blank" href="/dnd/house-map-generator/4-8-100-100-858198-946673-2-Enchanter/">Map</a>
+    <ul style="margin:0;"><u>Specials:</u>
+    </ul><br>
+    <ul style="margin:0;"><u>Other Patrons:</u>
+        <li>None</li></ul>
+    <p></p><hr></div>
+
+<div style="display:none;">
+    <p id="townStore"><strong>General Store: </strong><br>
+        <u>Owner:</u> Margery Malcolms, Female Half-Orc <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=8&amp;reqOccupation=Merchant&amp;useSeed=on&amp;seed=925637">[Details]</a></p>
+    <u>Location:</u> <br>
+    <u>Description:</u> <br>
+    <a target="_blank" href="/dnd/house-map-generator/4-8-100-100-787708-925637-8-Merchant/">Map</a>
+    <ul style="margin:0;"><u>Specials:</u>
+    </ul><br>
+    <ul style="margin:0;"><u>Other Patrons:</u>
+        <li>None</li></ul>
+    <p></p><hr></div>
+
+<h2>Housing</h2>
+
+<div>
+    <p id="townCottage"><strong>Small Cottage</strong><br>
+        <u>Owner:</u> Susannah Drover, Female Half-Elf <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=6&amp;useSeed=on&amp;seed=478930">[Details]</a>
+        <br><a target="_blank" href="/dnd/house-map-generator/0-8-100-100-338866-478930-6-/">Map</a></p>
+    <p>
+        The house is a log single storey building, with a gray tile roof and a small enclosed deck. It contains a single bachelor-style room with a bed and dresser.  In one corner is brick hearth with a cauldron over the fire. A small stockpile of boxes and barrels are messily crammed into a corner. A big working dog is eager to greet visitors. <br>
+    </p><hr></div>
+
+<div>
+    <p id="townHouse"><strong>Cruck House</strong><br>
+        <u>Owner:</u> Eloise Devore, Female Elf <a target="_blank" href="/?page=dnd&amp;subpage=npc-generator&amp;reqRace=4&amp;useSeed=on&amp;seed=170093">[Details]</a>
+        <br><a target="_blank" href="/dnd/house-map-generator/1-8-100-100-52101-170093-4-/">Map</a></p>
+    <p>
+        The house is a log and large single storey building, with a reinforced wooden door and a koi pond. It contains 4 rooms total with 1 bedroom, each containing a chest.  The kitchen has a brick hearth with a cauldron over the fire. Outside is a beautifully manicured garden of flowers, and a few pigs have a pen set up in the rest of the space. <br>
+    </p><hr></div>
+
+
+<script>
+    function buildDetailedDemos() {
+        var pop = parseInt($("popNumSpan").innerHTML.replace(",",""));
+        var div = $("detailDemoDiv");
+        var demos = ["farmers",4,"children",5,"laborers",20,"clergy",4000,"guards",150,"shoemakers",150,"noble houses",200,"Furriers",250,"Maidservants",250,"Tailors",250,"Barbers",350,"temples",4000000,"Jewelers",400,"Taverns",400,"old-clothes",400,"Pastrycooks",500,"Masons",500,"carpenters",550,"Weavers",600,"lawyers",650,"chandlers",700,"Mercers",700,"coopers",700,"thieves",750,"Bakers",800,"watercarriers",850,"scabbardmakers",850,"wine-sellers",900,"Hatmakers",950,"saddlers",1000,"chicken Butchers",1000,"Pursemakers",1100,"Butchers",1200,"Fishmongers",1200,"Beer-sellers",1400,"Buckle Makers",1400,"Plasterers",1400,"spice Merchants",1400,"Blacksmiths",1500,"Painters",1500,"doctors",1700,"Roofers",1800,"locksmiths",1900,"Bathers",1900,"Ropemakers",1900,"Inns",2000,"Tanners",2000,"copyists",2000,"sculptors",2000,"Rugmakers",2000,"Harness-Makers",2000,"Bleachers",2100,"Hay Merchants",2300,"cutlers",2300,"woodsellers",2400,"Glovemakers",2400,"woodcarvers",2400,"Magic-shops",2800,"Bookbinders",3000,"Illuminators",3900,"Booksellers",6300,"university",27300000];
+        if (div.style.display=="none") {
+            div.style.display="";
+            $("detSrc").style.display="block";
+            var tbl = $("detailDemoTbl");
+            if (tbl == null) {
+                var tbltxt = "<div id='detailDemoTbl' style='column-count:3;'>";
+                var livestock = pop * (2.2 + (rand(-3,3)*0.1) );
+                for (var i = 0; i < demos.length-1; i+=2) {
+                    var sv = rand(demos[i+1] * 0.75, demos[i+1] * 1.5);
+                    sv = pop / sv;
+                    if (sv < 1) {
+                        if (rand(0,10000) < sv*10000) sv = 1;
+                        else sv = 0;
+                    }
+                    if (sv >= 1) {
+                        sv = Math.round(sv);
+                        tbltxt += "<div><span class='demoTblDiv'>"+(demos[i].charAt(0).toUpperCase() + demos[i].slice(1))+"</span> <span>"+sv.toLocaleString()+"</span></div>";
+                    }
+                }
+                tbltxt += "</div>";
+                div.innerHTML = tbltxt;
+            }
+        } else {
+            div.style.display="none";
+        }
+    }
+    function rand(a,b) {
+        return Math.floor(Math.random() * (b - a + 1)) + a;
+    }
+</script>
+
+<!--br/>
+
+<p id="related" style="width:100%;max-width:100%;clear:both;">
+<a href="/dnd/town-generator/"><img title="Generate towns with demographics, detailed shops, and NPC patrons" class="related" src="/site/images/dnd/town-generator-thumb.png" alt="Town Generator"/></a>
+<a href="/dnd/combat-tracker/"><img title="A tool for keeping track of characters in a combat encounter" class="related" src="/site/images/dnd/combat-tracker-thumb.png" alt="D&amp;D Combat Tracker"/></a>
+<a href="/dnd/cheap-miniatures/"><img title="Create 100 PC and NPC miniatures for around $15" class="related" src="/site/images/dnd/cheap-minis-thumb.png" alt="D&amp;D Cheap Miniatures"/></a>
+<a href="/dnd/encounter-builder/"><img title="A tool for creating level-appropriate combat encounters" class="related" src="/site/images/dnd/encounter-builder-thumb.png" alt="D&amp;D Encounter Builder"/></a>
+<a href="/dnd/reusable-status-markers/"><img title="Create 100 markers to easily track status conditions for around $10" class="related" src="/site/images/dnd/status-markers-thumb.png" alt="Reusable Status Markers"/></a>
+<a href="/dnd/dice-roller/"><img title="A tool for rolling dice. Has support for specialty rolls and sharing group rolls for online games" class="related" src="/site/images/dnd/dice-roller-thumb.png" alt="Dice Roller"/></a>
+<a href="/dnd/dm-lessons/"><img title="Learn some tips for creating more engaging games" class="related" src="/site/images/dnd/dm-lessons-thumb.png" alt="DM Lessons"/></a>
+<a href="/dnd/5e/crib-sheet/"><img title="A quick reference sheet for all the various conditions, actions, and modifiers" class="related" src="/site/images/dnd/cheat-sheet-thumb.png" alt="D&amp;D Cheat Sheet"/></a>
+<a href="/dnd/dont-wake-sentries/"><img title="A custom skill challenge that focuses on player interaction and creating tension" class="related" src="/site/images/dnd/wake-sentries-thumb.png" alt="Don't Wake Sentries"/></a>
+<a href="/dnd/character-wealth/"><img title="Calculate loot rewards based on party size and level" class="related" src="/site/images/dnd/loot-calculator-thumb.png" alt="Loot Calculator"/></a>
+<div style="clear:both;">&nbsp;</div>
+</p-->
+<h3 id="detSrc" style="display:none;">Detailed demographics are based on a formula by S. John Ross</h3>
+<div class="totop noprint"><a href="javascript:scroll(0,0);" onclick="scroll(0,0)">Top</a></div>
+
+
+
+<div id="helpbox">
+    <p style="text-align: justify;"></p><div class="sprite sprite-d20"></div> This website exists thanks to the contribution of patrons on Patreon. If you find these tools helpful, please consider supporting this site. Even just disabling your adblocker will help (it's only text and plain image ads I promise). Becoming a patron will upgrade your account to <a href="/premium/">premium</a>, giving you no ads and more features.<p></p>
+    <p>Shout outs: Stacey, Grey, Richard Cotterill, Isaac Bergum, Jo-Jo Dojo, Keaton Permenter, Shazear, John Nazario, Gary, Gordon Alexander Fallon, Sunscryer, Max Puplett
+        . <br><a href="/premium/">Their contribution</a> stands as a beacon of hope for all adventurers!</p>
+
+    <div style="width: 33%; padding: 0; float: left; text-align: center;overflow:hidden;"><a href="https://www.patreon.com/roguelegend" target="_blank"><div class="sprite sprite-patreonBig"></div></a>
+        <div style="line-height: 0;"><a href="https://www.patreon.com/roguelegend" target="_blank" rel="noopener"><img src="/site/images/becomePatron.png" alt="Become a patron" style="width:100%;border:0;"></a></div>
+    </div>
+    <div style="width: 33%; padding: 0; float: left; text-align: center;overflow:hidden;">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input name="cmd" value="_donations" type="hidden">
+            <input name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----" type="hidden">
+            <input name="currency_code" value="USD" type="hidden">
+            <input name="business" value="kassoon@kassoon.com" type="hidden">
+            <input name="item_name" value="kassoon.com donation" type="hidden">
+            <input style="max-width:100%" class="sprite sprite-PaypalBig" name="submit" type="image" value="" border="0">
+            <input style="max-width:100%" class="sprite sprite-paypal" name="submit" type="image" value="" border="0">
+            <input name="notify_url" value="https://www.kassoon.com/paypal" type="hidden">
+            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" border="0">
+        </form>
+    </div>
+
+    <div style="clear:both;">&nbsp;</div>
+</div>
+
+<a href="/premium/"><img style="display:block;text-align:center;margin-left:auto;margin-right:auto;" src="/site/images/frXiJZVdB.png"></a>

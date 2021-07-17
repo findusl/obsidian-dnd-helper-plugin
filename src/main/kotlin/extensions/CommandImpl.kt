@@ -1,3 +1,7 @@
+package extensions
+
+import Command
+
 data class CommandImpl (
     override var id: String,
     override var name: String,

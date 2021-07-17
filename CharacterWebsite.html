@@ -1,0 +1,739 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HFPBBWBQ29"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HFPBBWBQ29');
+</script>
+
+
+
+
+	<title>NPC Generator - Halander TellPenny, Male Halfling Fighter - Kassoon.com</title>
+	<meta name="description" content=" Halander TellPenny, Chaotic Evil Male Halfling, level 12 Fighter. He is scrawny and has patchy auburn stubble. He wears a faded coat and loose pants complete with Stetson hat. He has a hunchback. His moppish auburn hair is in a traditional bowl cut. His hazel eyes are passionate and lively. Generate Names for characters, npcs, anyone. Includes options for different races and genders."/>
+	<meta name="keywords" content="name, names, generator, creator, character, npc, Halfling, Male, , Male, Halfling, Fighter, Chaotic Evil"/>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8"/>
+	<link rel="alternate" type="application/rss+xml" title="Kassoon.com RSS Feed" href="/site/rss.xml" />
+    <script async type="text/javascript" src="/site/js.js"></script>
+</head>
+
+<body>
+<div id="selector_box">&nbsp;</div>
+<div id="popup">
+    <div id="popupOverlay"></div>
+    <div id="popupContent">
+        <form onsubmit="return false;">
+            <h1 id="popupTitle"></h1>
+            <div id="popupInputs"></div>
+            <input type="submit" id="togglePopup" value="Done"/>
+        </form>
+    </div>
+</div>
+
+<noscript id="deferred-styles">
+  <link async rel="stylesheet" type="text/css" href="/site/css.css"/>
+</noscript>
+<script>
+  var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+  };
+  var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+      webkitRequestAnimationFrame || msRequestAnimationFrame;
+  if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+  else window.addEventListener('load', loadDeferredStyles);
+</script>
+
+
+<div id="main">
+
+<div id="kass">
+	<a href="/">Kassoon</a>
+</div>
+
+<div class="googTop">
+    <style>
+    .responsive-top { width: 320px; height: 50px;top:35px; }
+    @media(max-width:320px) {.responsive-top {position:relative;left:-4px;top:35px;} }
+    @media(min-width: 500px) { .responsive-top { width: 468px; height: 60px; } }
+    @media(min-width: 800px) { .responsive-top { width: 728px; height: 90px; } }
+    </style>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Responsive Top -->
+    <ins class="adsbygoogle responsive-top"
+         style="display:inline-block"
+         data-full-width-responsive="true"
+         data-ad-client="ca-pub-8011755778530070"
+         data-ad-slot="6095479700"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+<div class="cl"></div>
+
+<div id="layout" >
+
+<div id="content"  >
+
+<form action="/dnd/npc-generator/" method="post">
+<h1>NPC Generator</h1>
+<div class="floTR">
+	<div><select name="reqGender">
+        <option value="0">Any Gender</option>
+        <option value="1" >Male</option>
+        <option value="2" >Female</option>
+    </select></div>
+</div>
+<div class="floTR">
+	<div><select name="reqRace">
+        <option value="0">Any Race</option>
+        <option value="1" >Any Core</option>
+        <option value="2" >Human</option><option value="3" >Dwarf</option><option value="4" >Elf</option><option value="5" >Gnome</option><option value="6" >Half-Elf</option><option value="7" selected>Halfling</option><option value="8" >Half-Orc</option>    </select></div>
+</div>
+<div class="floTR">
+	<div><select name="reqClass">
+        <option value="0">Any Class</option>
+        <option value="1" >Any Core</option>
+        <option value="2" >Any NPC</option>
+        <option value="3" >Adept</option><option value="8" >Aristocrat</option><option value="10" >Barbarian</option><option value="11" >Bard</option><option value="16" >Cleric</option><option value="18" >Commoner</option><option value="24" >Druid</option><option value="59" >Expert</option><option value="60" >Fighter</option><option value="69" >Monk</option><option value="73" >Paladin</option><option value="85" >Ranger</option><option value="86" >Rogue</option><option value="90" >Sorcerer</option><option value="98" >Warrior</option><option value="99" >Wizard</option>    </select></div>
+</div>
+<div class="floTR">
+	<div class="light floTH">Lvl.</div>
+    <div><input name="minLevel" type="text" value="1" maxlength="2" style="width:15px;" />
+    -
+    <input name="maxLevel" type="text" value="20" maxlength="2" style="width:15px;" /></div>
+</div>
+<div class="floTR">
+	<div><select name="reqAlignment">
+        <option value="0">Any Alignment</option>
+        <option value="1" >Any Good</option>
+        <option value="2" >Any Evil</option>
+        <option value="3" >Any Neutral</option>
+        <option value="4" >Any Lawful</option>
+        <option value="5" >Any Chaotic</option>
+        <option value="6" >Lawful Good</option>
+        <option value="7" >Lawful Neutral</option>
+        <option value="8" >Lawful Evil</option>
+        <option value="9" >Neutral Good</option>
+        <option value="10" >True Neutral</option>
+        <option value="11" >Neutral Evil</option>
+        <option value="12" >Chaotic Good</option>
+        <option value="13" >Chaotic Neutral</option>
+        <option value="14" >Chaotic Evil</option>
+    </select></div>
+</div>
+<div class="floTR">
+	<div class="light floTH">Ability Scores</div>
+    <div><select name="abilityGen">
+        <option value="0">4d6 Drop lowest</option>
+        <option value="1" >Classic (3d6)</option>
+        <option value="2" >Heroic (2d6+6)</option>
+        <option value="3" >Average (9-11)</option>
+    </select></div>
+</div>
+<div class="floTR">
+    <div class="light floTH"><input type="checkbox" name="useSeed" checked/> Seed</div>
+	<div><input type="text" name="seed" style="width:75px;" value="125261" /></div>
+</div>
+<div class="clear">&nbsp;</div>
+<input type="submit" value="Generate" />
+<div class="floTR">
+	<div><select name="numGenerate">
+        <option value="1">1 NPC</option>
+        <option value="2">2 NPCs</option>
+        <option value="3">3 NPCs</option>
+        <option value="4">4 NPCs</option>
+        <option value="5">5 NPCs</option>
+        <option value="6">6 NPCs</option>
+        <option value="7">7 NPCs</option>
+        <option value="8">8 NPCs</option>
+        <option value="9">9 NPCs</option>
+        <option value="10">10 NPCs</option>
+    </select></div>
+</div>
+    <h3>Advanced <a class="ph" id="a0" onclick="return ! tPV(this)" href="javascript:tPV(this);">[show]</a></h3>
+    <div style="clear:both;display:none;" id="p0">
+    <select name="genAppearance">
+        <option value="0">Any Appearance</option>
+        <option value="1">Normal</option>
+        <option value="2">Attractive</option>
+        <option value="3">Ugly</option>
+        <option value="4">Not Normal</option>
+        <option value="5">Not Attractive</option>
+        <option value="6">Not Ugly</option>
+    </select>
+    <select name="genOccupation">
+        <option value="0">Normal Occupation</option>
+        <option value="1">Class as Occupation</option>
+    </select>
+    <select name="gearType">
+        <option value="0">DMG Gear</option>
+        <option value="practical">Practical Gear</option>
+        <option value="rawGP">Raw GP Gear</option>
+    </select>
+    <br /><br />
+    </div>
+</form>
+<!--h4>Saved NPCs</h4-->
+<br />
+<div class="npcGen">
+    <h1 id="npcTitle">Halander TellPenny, Male Halfling <a class="npcPerma" href="/dnd/npc-generator/070000000000000/125261/halander-tellpenny-male-halfling/">[Permalink]</a></h1>
+    <form method="get" style="float:right;clear:both;" action="/dnd/saved-generators/L2RuZC9ucGMtZ2VuZXJhdG9yLzA3MDAwMDAwMDAwMDAwMC8xMjUyNjEvaGFsYW5kZXItdGVsbHBlbm55LW1hbGUtaGFsZmxpbmcv/" target="_blank"><input type="submit" value="Save"/></form>
+
+
+    <h2>Personal <a class="ph" id="a3" onclick="return ! tPV(this)" href="javascript:tPV(this);">[hide]</a></h2>
+    <div id="p3">
+        <p id="npcDesc"><strong>Description: </strong> He is scrawny and has patchy auburn stubble. He wears a faded coat and loose pants complete with Stetson hat. He has a hunchback. His moppish auburn hair is in a traditional bowl cut. His hazel eyes are passionate and lively.</p>
+        <p id="npcPers"><strong>Personality: </strong> He trusts no one. He is not readily capable for forgiveness and his ire never leaves him. He has no love for corruption and racketeering and views those as crimes of the highest magnitude.</p>
+        <p id="npcHist"><strong>History: </strong> He was born the only child of a wealthy merchant. He was one of the best in his class, and was picked up by his current employer. He quickly showed his capability and was soon promoted to a head role. He was betrayed by a partner and left for dead, teaching him a humbling lesson in trusting others.</p>
+        <p id="npcMot"><strong>Motivation: </strong> Seeks redemption; and he feels that his past leaves him morally obligated to help</p>
+        <p id="npcOcc"> <strong>Ideals:</strong> Justice, Entrepeneur. <strong>Flaws:</strong> Ugly, Antagonistic. <strong>Bonds:</strong> Job, Criminal record. <strong>Occupation: </strong> Performer</p>
+        <p id="npcVoi"><strong>Voice: </strong> Scandinavian accent</p>
+    </div>
+
+    <h2>Attributes <a class="ph" id="a2" onclick="return ! tPV(this)" href="javascript:tPV(this);">[hide]</a></h2>
+    <div id="p2">
+		<div>
+			<input onclick="npcChgStats('stats3rd','2')" type="button" class="sitebtn" value="3rd"/>
+			<input onclick="npcChgStats('statsPF','2')" type="button" class="sitebtn" value="PF"/>
+			<input onclick="npcChgStats('stats5th','2')" type="button" class="sitebtn" value="5th"/>
+		</div>
+
+        <div id="stats3rd2" style="display:none;">
+	        Halander TellPenny, Male Halfling Fighter 12<br/>
+	        <span style="font-style: italic;font-size: 14px;">Small (3'3") Halfling, Chaotic Evil (CR 12)</span><br/>
+	        <strong>Armor Class</strong> 14<br/>
+	        <strong>Hit Points</strong> 112 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for critical or Ctrl for half damage" onclick="return ! monRoll('Halander TellPenny Hit Points','12d10',event);">12d10</a>)<br/>
+	        <strong>Speed</strong> 20 ft.
+	        <table cellspacing="0" style="width:450px;text-align:center;"><thead>
+	        	<tr><th class="light">STR</th><th>DEX</th><th class="light">CON</th><th>INT</th><th class="light">WIS</th><th>CHA</th></tr>
+            </thead><tbody>
+	        	<tr><td label="STR" class="light">16 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny STR','d20+3',event);">+3</a>)</td><td label="DEX">16 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny DEX','d20+3',event);">+3</a>)</td>
+	        	<td label="CON" class="light">16 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny CON','d20+3',event);">+3</a>)</td><td label="INT">15 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny INT','d20+2',event);">+2</a>)</td>
+	        	<td label="WIS" class="light">12 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny WIS','d20+1',event);">+1</a>)</td><td label="CHA">9 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny CHA','d20-1',event);">-1</a>)</td></tr>
+	        </tbody></table>
+	        <strong>Saves</strong> Fort +11, Ref +4, Will +4<br/>
+	        <strong>Skills</strong> Climb  +11, Craft  +8, Handle Animal  +5, Intimidate  +6, Jump  +15, Ride  +12,  Swim  +15<br/>
+	        <strong>Senses</strong> Listen +1, Spot +1<br/>
+	        <strong>Languages</strong> Common, Halfling, Goblin, Draconic<br/>
+	        <strong>Attacks</strong>
+	        Melee <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Attack','d20+16',event);">+16</a> / <a href="javascript:void(0);" title="Roll the dice, hold Shift for critical or Ctrl for half damage" onclick="return ! monRoll('Halander TellPenny Attack Damage','3d10+3',event,1);">3d10+3</a>/+11/+6, Ranged <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Attack','d20+16',event);">+16</a> / <a href="javascript:void(0);" title="Roll the dice, hold Shift for critical or Ctrl for half damage" onclick="return ! monRoll('Halander TellPenny Attack Damage','3d10+3',event,1);">3d10+3</a>/+11/+6, Grapple <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Grapple','d20+16',event);">+16</a>
+	        
+        </div>
+
+        <div id="statsPF2" style="display:none;">
+	        Halander TellPenny, Male Halfling Fighter 12<br/>
+	        <span style="font-style: italic;font-size: 14px;">Small (3'3") Halfling, Chaotic Evil (CR 12)</span><br/>
+	        <strong>Armor Class</strong> 14<br/>
+	        <strong>Hit Points</strong> 112 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for critical or Ctrl for half damage" onclick="return ! monRoll('Halander TellPenny Hit Points','12d10',event,1);">12d10</a>)<br/>
+	        <strong>Speed</strong> 20 ft.
+	        <table cellspacing="0" style="width:450px;text-align:center;"><thead>
+	        	<tr><th class="light">STR</th><th>DEX</th><th class="light">CON</th><th >INT</th><th class="light">WIS</th><th>CHA</th></tr>
+            </thead><tbody>
+	        	<tr><td label="STR" class="light">16 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny STR','d20+3',event);">+3</a>)</td><td label="DEX">16 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny DEX','d20+3',event);">+3</a>)</td>
+	        	<td label="CON" class="light">16 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny CON','d20+3',event);">+3</a>)</td><td label="INT">15 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny INT','d20+2',event);">+2</a>)</td>
+	        	<td label="WIS" class="light">12 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny WIS','d20+1',event);">+1</a>)</td><td label="CHA">9 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny CHA','d20-1',event);">-1</a>)</td></tr>
+	        </tbody></table>
+	        <strong>Saves</strong> Fort +11, Ref +4, Will +4<br/>
+	        <strong>Skills</strong> Climb  <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Climb ','d20+11',event);">+11</a>, Craft  <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Craft ','d20+8',event);">+8</a>, Handle Animal  <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Handle Animal ','d20+5',event);">+5</a>, Intimidate  <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Intimidate ','d20+6',event);">+6</a>, Ride  <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Ride ','d20+12',event);">+12</a>,  Swim  <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny  Swim ','d20+15',event);">+15</a><br/>
+	        <strong>Senses</strong> Perception +1<br/>
+	        <strong>Languages</strong> Common, Halfling, Goblin, Draconic<br/>
+	        <strong>Attacks</strong>
+	        Melee <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Attack','d20+16',event);">+16</a> / <a href="javascript:void(0);" title="Roll the dice, hold Shift for critical or Ctrl for half damage" onclick="return ! monRoll('Halander TellPenny Attack Damage','3d10+3',event,1);">3d10+3</a>/+11/+6, Ranged <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Attack','d20+16',event);">+16</a> / <a href="javascript:void(0);" title="Roll the dice, hold Shift for critical or Ctrl for half damage" onclick="return ! monRoll('Halander TellPenny Attack Damage','3d10+3',event,1);">3d10+3</a>/+11/+6, CMB <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Grapple','d20+16',event);">+16</a>
+	        
+        </div>
+
+        <div id="stats5th2">
+	        Halander TellPenny, Male Halfling Fighter 12<br/>
+	        <span style="font-style: italic;font-size: 14px;">Small (3'3") Halfling, Chaotic Evil (CR 12)</span><br/>
+	        <strong>Armor Class</strong> 14<br/>
+	        <strong>Hit Points</strong> 112 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for critical or Ctrl for half damage" onclick="return ! monRoll('Halander TellPenny Hit Points','12d10',event,1);">12d10</a>)<br/>
+	        <strong>Speed</strong> 20 ft.
+	        <table cellspacing="0" style="width:450px;text-align:center;"><thead>
+	        	<tr><th class="light">STR</th><th>DEX</th><th class="light">CON</th><th>INT</th><th class="light">WIS</th><th>CHA</th></tr>
+            </thead><tbody>
+	        	<tr><td label="STR" class="light">16 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny STR','d20+3',event);">+3</a>)</td><td label="DEX">16 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny DEX','d20+3',event);">+3</a>)</td>
+	        	<td label="CON" class="light">16 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny CON','d20+3',event);">+3</a>)</td><td label="INT">15 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny INT','d20+2',event);">+2</a>)</td>
+	        	<td label="WIS" class="light">12 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny WIS','d20+1',event);">+1</a>)</td><td label="CHA">9 (<a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny CHA','d20-1',event);">-1</a>)</td></tr>
+	        </tbody></table>
+	        <strong>Skills</strong> Animal Handling  <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Animal Handling ','d20+5',event);">+5</a>, Arcana  <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Arcana ','d20+6',event);">+6</a><br/>
+	        <strong>Senses</strong> Passive Perception 11<br/>
+	        <strong>Languages</strong> Common, Halfling, Goblin, Draconic<br/>
+	        <strong>Attacks</strong>
+	        Melee <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Attack','d20+7',event);">+7</a> / <a href="javascript:void(0);" title="Roll the dice, hold Shift for critical or Ctrl for half damage" onclick="return ! monRoll('Halander TellPenny Attack Damage','3d10+3',event,1);">3d10+3</a>, Ranged <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Attack','d20+7',event);">+7</a> / <a href="javascript:void(0);" title="Roll the dice, hold Shift for critical or Ctrl for half damage" onclick="return ! monRoll('Halander TellPenny Attack Damage','3d10+3',event,1);">3d10+3</a>, Grapple <a href="javascript:void(0);" title="Roll the dice, hold Shift for advantage or Ctrl for disadvantage" onclick="return ! monRoll('Halander TellPenny Grapple','d20+3',event);">+3</a>
+	        
+        </div>
+        <p><strong>Possessions:</strong> 400 pp. Violet garnet (900 gp). </p>
+    </div>
+</div>
+
+<hr />
+<p><a href='/dnd/5e/skill-info/#dcs'>Social Check DCs</a></p>
+<div id="shRollDiv" style="display:none;position:absolute; width: 360px; min-width: 200px; max-width: 780px; height: 100px; min-height: 100px; max-height: 1024px; overflow: hidden; resize: both;z-index: 99;background:#eae4ca;top: 18px; left: 709px;">
+	<div id="shRollDivheader" style="width:100%;height:22px;background-color:#ddd5b8;border:1px solid #c6bd98;color:#78704e;cursor:move;font-size: 22px;padding:5px;">
+		Drag Me
+		<div style="float:right;margin-right:12px;">
+			<a onclick="togDisp(document.getElementById('shRollDiv'))" style="text-decoration: none;color: #78704e;">X</a></div>
+	</div>
+	<div id="shRolWin" style="width: 100%; height: 100%;"></div>
+</div>
+<script>
+function npcChgStats(a,b) {
+	document.getElementById("stats3rd"+b).style.display="none";
+	document.getElementById("statsPF"+b).style.display="none";
+	document.getElementById("stats5th"+b).style.display="none";
+	document.getElementById(a+b).style.display="block";
+}
+dragElement(document.getElementById("shRollDiv"));
+function togDisp(div)
+{
+    if (div.style.display=="none")
+        div.style.display="block"; else
+        div.style.display="none";
+}
+function dragElement(elmnt)
+{
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+    } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+    }
+    function dragMouseDown(e)
+    {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
+    function elementDrag(e)
+    {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+    function closeDragElement()
+    {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
+</script><!--br/>
+
+<p id="related" style="width:100%;max-width:100%;clear:both;">
+<a href="/dnd/town-generator/"><img title="Generate towns with demographics, detailed shops, and NPC patrons" class="related" src="/site/images/dnd/town-generator-thumb.png" alt="Town Generator"/></a>
+<a href="/dnd/combat-tracker/"><img title="A tool for keeping track of characters in a combat encounter" class="related" src="/site/images/dnd/combat-tracker-thumb.png" alt="D&amp;D Combat Tracker"/></a>
+<a href="/dnd/cheap-miniatures/"><img title="Create 100 PC and NPC miniatures for around $15" class="related" src="/site/images/dnd/cheap-minis-thumb.png" alt="D&amp;D Cheap Miniatures"/></a>
+<a href="/dnd/encounter-builder/"><img title="A tool for creating level-appropriate combat encounters" class="related" src="/site/images/dnd/encounter-builder-thumb.png" alt="D&amp;D Encounter Builder"/></a>
+<a href="/dnd/reusable-status-markers/"><img title="Create 100 markers to easily track status conditions for around $10" class="related" src="/site/images/dnd/status-markers-thumb.png" alt="Reusable Status Markers"/></a>
+<a href="/dnd/dice-roller/"><img title="A tool for rolling dice. Has support for specialty rolls and sharing group rolls for online games" class="related" src="/site/images/dnd/dice-roller-thumb.png" alt="Dice Roller"/></a>
+<a href="/dnd/dm-lessons/"><img title="Learn some tips for creating more engaging games" class="related" src="/site/images/dnd/dm-lessons-thumb.png" alt="DM Lessons"/></a>
+<a href="/dnd/5e/crib-sheet/"><img title="A quick reference sheet for all the various conditions, actions, and modifiers" class="related" src="/site/images/dnd/cheat-sheet-thumb.png" alt="D&amp;D Cheat Sheet"/></a>
+<a href="/dnd/dont-wake-sentries/"><img title="A custom skill challenge that focuses on player interaction and creating tension" class="related" src="/site/images/dnd/wake-sentries-thumb.png" alt="Don't Wake Sentries"/></a>
+<a href="/dnd/character-wealth/"><img title="Calculate loot rewards based on party size and level" class="related" src="/site/images/dnd/loot-calculator-thumb.png" alt="Loot Calculator"/></a>
+<div style="clear:both;">&nbsp;</div>
+</p--><div class="totop noprint"><a href="javascript:scroll(0,0);" onclick="scroll(0,0)">Top</a></div>
+
+
+
+    <div id="helpbox">
+        <p style="text-align: justify;"><div class="sprite sprite-d20"></div> This website exists thanks to the contribution of patrons on Patreon. If you find these tools helpful, please consider supporting this site. Even just disabling your adblocker will help (it's only text and plain image ads I promise). Becoming a patron will upgrade your account to <a href="/premium/">premium</a>, giving you no ads and more features.</p>
+    <p>Shout outs: Stacey, Grey, Richard Cotterill, Isaac Bergum, Jo-Jo Dojo, Keaton Permenter, Shazear, John Nazario, Gary, Gordon Alexander Fallon, Sunscryer, Max Puplett
+. <br/><a href="/premium/">Their contribution</a> stands as a beacon of hope for all adventurers!</p>
+
+        <div style="width: 33%; padding: 0; float: left; text-align: center;overflow:hidden;"><a href="https://www.patreon.com/roguelegend" target="_blank"><div class="sprite sprite-patreonBig"></div></a>
+        <div style="line-height: 0;"><a href="https://www.patreon.com/roguelegend" target="_blank" rel="noopener"><img src="/site/images/becomePatron.png" alt="Become a patron" style="width:100%;border:0;"/></a></div>
+    </div>
+    <div style="width: 33%; padding: 0; float: left; text-align: center;overflow:hidden;">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input name="cmd" value="_donations" type="hidden">
+            <input name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----" type="hidden">
+            <input name="currency_code" value="USD" type="hidden">
+            <input name="business" value="kassoon@kassoon.com" type="hidden">
+            <input name="item_name" value="kassoon.com donation" type="hidden">
+            <input style="max-width:100%" class="sprite sprite-PaypalBig" name="submit" type="image" value="" border="0">
+            <input style="max-width:100%" class="sprite sprite-paypal" name="submit" type="image" value="" border="0">
+            <input name="notify_url" value="https://www.kassoon.com/paypal" type="hidden">
+            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" border="0">
+        </form>
+    </div>
+
+    <div style="clear:both;">&nbsp;</div>
+    </div>
+
+<a href="/premium/"><img style="display:block;text-align:center;margin-left:auto;margin-right:auto;" src="/site/images/VcPO328z.png"/></a>
+
+</div>
+
+<div id="mobileMenu"><a href="" onclick="if ($('leftNav').style.position=='absolute') $('leftNav').style.position=''; else $('leftNav').style.position='absolute';return false;"><div class="sprite sprite-mobile"></div></a></div>
+<a id="mainMenuToggleBtn" style="position:fixed;top:30px;left:0;font-size:20px;z-index:9999;background:#E4DDC4;line-height:19px;" class="ph" href="/" onclick="return ! hidNav(this,['[+]','[-]'])">[-]</a>
+
+
+<a id="LD1" class="ph noprint" href="/login/" style="position:absolute;top:29px;left:40px;font-size:12px;z-index:9999;line-height:12px;" onclick="return ! tPV(this,['Login&dtrif;','Login&utrif;'],'LW','LD')">Login&dtrif;</a>
+<div id="LW1" style="display:none;padding:10px;position:absolute;top:60px;left:0;z-index:9999;background:#e4ddc3;border:1px solid #c6bd98;">
+<form action="/login/" method="post">
+Make campaigns and save <a href="/dnd/encounter-builder/">encounters</a> / <a href="/dnd/combat-tracker/">combats</a> / <a href="/dnd/dice-roller/">dice rolls</a> and more. One step!<br/>
+<p><table>
+<tr>
+<td>Username:</td> <td><input placeholder="Username" maxlength="25" class="small" value="" id="userInp" type="text" name="username"/></td>
+</tr><tr>
+<td>Password:</td> <td><input placeholder="Password" class="small" id="passInp" type="password" name="password"/></td>
+</tr><tr>
+<td style="text-align:center;" colspan="2"><input type="submit" id="subInp" class="sitebtn" name="login" value="Log In"/></td>
+</tr><tr>
+  <td style="text-align:right;font-size: 12px;" colspan="2"><a href="/forgot/">Forgot?</a></td>
+</tr>
+<td></form><form action="/login/" method="post"><h2>Register</h2></td>
+<tr>
+<td>Username:</td> <td><input placeholder="Username" maxlength="25" class="small" value="" type="text" name="username"/></td>
+</tr><tr>
+<td>Password:</td> <td><input placeholder="Password" class="small" type="password" name="password"/></td>
+</tr><tr>
+<td>Recovery Email (Optional):</td><td><input placeholder="Email" maxlength="50" onkeypress="return sbReg(event);" value="" style="margin-top:5px;" class="small" id="emailInp" type="text" name="email"/></td>
+</tr><tr>
+<td colspan="2" style="text-align:center;"><input type="submit" id="regInp" class="sitebtn" name="register" value="Register"/></td>
+</tr>
+</table>
+<input type="hidden" value="/?page=dnd&subpage=npc-generator&reqRace=7&useSeed=on&seed=125261" name="prevPage" />
+</form></p><p><a href="/gift-premium/">Gift Premium</a></p></div>
+
+<div id="leftNav" style="z-index:100;">
+    <div>
+    	<div id="navTree">
+    		<div class="mails">
+        
+        Subscribe to updates!
+
+        <div id="mc_embed_signup">
+        <form action="//kassoon.us14.list-manage.com/subscribe/post?u=7f8a74946644648695672a9aa&amp;id=8d344cb991" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            <div id="mc_embed_signup_scroll">
+
+        <div class="mc-field-group">
+        	<input type="email" value="" name="EMAIL" class="required email" placeholder="Email" style="width:100%;" id="mce-EMAIL">
+            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" style="width:100%;padding:2px !important;" class="button sitebtn">
+        </div>
+        	<div id="mce-responses" class="clear">
+        		<div class="response" id="mce-error-response" style="display:none"></div>
+        		<div class="response" id="mce-success-response" style="display:none"></div>
+        	</div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_7f8a74946644648695672a9aa_8d344cb991" tabindex="-1" value=""></div>
+            </div>
+        </form>
+        </div>
+
+        <!--form action="/subscribe/" method="post">
+        <input type="text" name="subEmail" style="width:90px;" maxlength="50" placeholder="Email"/>
+        <input type="submit" style="width:55px;" value="Submit"/>
+        <input type="hidden" value="/?page=dnd&subpage=npc-generator&reqRace=7&useSeed=on&seed=125261" name="prevPage" />
+        </form-->
+        <br/>
+        <div style="height:16px;">
+            <a class="followPatreon" target="_blank" href="https://www.patreon.com/roguelegend"><div class="sprite sprite-patreon"></div></a>
+            <a title="Print Page" class="followPatreon" href="javascript:window.print();"><div class="sprite sprite-print"></div></a>
+        </div>
+    </div>
+
+            <ul class="pri">
+    			<li onclick="tD(this.nextSibling.nextSibling,'block')"><a href="/dnd/">D&amp;D</a></li>
+    			<ul style="display:block;" class="sec">
+                    <a href="/dnd/battle-maps/"><li>Battle Maps</li></a>
+				    <a href="/dnd/campaign-notes/"><li>Campaign Notes</li></a>
+				    <a href="/dnd/dice-roller/"><li>Dice Roller</li></a>
+				    <a href="/dnd/map/"><li>Grid Map</li></a>
+                    <a href="/lfg/"><li>LFG</li></a>
+                    <a href="/dnd/make-a-session/"><li>Make Session</li></a>
+				<li onclick="tD(this.nextSibling.nextSibling,'block')"><strong>5th Edition</strong></li>
+                    <ul  class="ter">
+			                  <a href="/dnd/5e/armor/"><li>Armor</li></a>
+                        <a href="/dnd/5e/crib-sheet/"><li>Cheat Sheet</li></a>
+                        <a href="/dnd/5e/character-sheet/"><li>Character Sheet</li></a>
+                        <a href="/dnd/5e/premade-characters/"><li>Characters (Premade)</li></a>
+                        <a href="/dnd/5e/character-builds/"><li>Character Guides</li></a>
+                        <a href="/dnd/5e/chase-tool"><li>Chase Tool</li></a>
+                        <a href="/dnd/5e/class/"><li>Class Creator</li></a>
+                        <a href="/dnd/5e/class-list/"><li>Class List</li></a>
+                        <a href="/dnd/5e/combat-tracker/"><li>Combat Tracker</li></a>
+                        <a href="/dnd/5e/barbarian-damage-calculator/"><li>Damage Calculator</li></a>
+                        <a href="/dnd/5e/downtime-events/"><li>Downtime Events</li></a>
+                        <a href="/dnd/5e/generate-encounter/"><li>Encounter Maker</li></a>
+                        <a href="/dnd/5e/encounter-list/"><li>Encounters (Premade)</li></a>
+						<a href="/dnd/monster-stat-block/"><li>Make Monsters</li></a>
+						<a href="/dnd/5e/monster-list/"><li>Monster List</li></a>
+                        <a href="/dnd/5e/magic-item-list/"><li>Magic Item List</li></a>
+                        <a href="/dnd/5e/magic-item-prices/"><li>Magic Item Prices</li></a>
+						<a href="/dnd/5e/free-modules/"><li>Modules</li></a>
+                        <a href="/dnd/5e/proficiency/"><li>Proficiency</li></a>
+                        <a href="/dnd/5e/skill-challenge-narrative-encounter/"><li>Skill Challenge</li></a>
+                        <a href="/dnd/5e/skill-info/"><li>Skill Definitions</li></a>
+                        <a href="/dnd/5e/how-to-do-social-encounters/"><li>Social Encounters</li></a>
+                        <a href="/dnd/5e/spellbook/"><li>Spellbook</li></a>
+                        <a href="/dnd/5e/spell-list/"><li>Spell List</li></a>
+	               		<a href="/dnd/5e/treasure-generator/"><li>Treasure Drops</li></a>
+                        <a href="/dnd/5e/weapons/"><li>Weapons</li></a>
+                        <a href="/dnd/5e/wild-magic-surge-generator/"><li>Wild Magic Surge</li></a>
+                        <a href="/dnd/5e/experience-to-level/"><li>XP Per Level</li></a>
+                    </ul>
+                    <li onclick="tD(this.nextSibling.nextSibling,'block')"><strong>4th Edition</strong></li>
+                    <ul  class="ter">
+                        <a href="/dnd/crib-sheet/"><li>Cheat Sheet</li></a>
+                        <a href="/dnd/combat-tracker/"><li>Combat Tracker</li></a>
+                        <a href="/dnd/encounter-builder/"><li>Encounter Builder</li></a>
+                        <a href="/dnd/public-encounters/"><li>Encounters List</li></a>
+    					<a href="/dnd/character-wealth/"><li>Loot Calculator</li></a>
+                    </ul>
+                    <li onclick="tD(this.nextSibling.nextSibling,'block')"><strong>Generators</strong></li>
+                    <ul style="display:block;" class="ter">
+                        <a href="/dnd/saved-generators/"><li>Saved Generator</li></a>
+                        <a href="/dnd/backstory-generator/"><li>Backstory</li></a>
+                        <a href="/dnd/boss-fight-ideas/"><li>Boss Fight</li></a>
+                        <a href="/dnd/campaign-generator/"><li>Campaign</li></a>
+                        <a href="/dnd/dungeon-map/"><li>Dungeon Maps</li></a>
+                        <a href="/dnd/dungeon-map-module/"><li>Dungeon Modules</li></a>
+                        <a href="/dnd/5e/dungeon-generator/"><li>Dungeons</li></a>
+                        <a href="/dnd/encounter-ideas-generator/"><li>Encounter Ideas</li></a>
+                        <a href="/dnd/house-map-generator/"><li>House Maps</li></a>
+                        <a href="/dnd/vicious-mockery-insult-generator/"><li>Insults</li></a>
+                        <a href="/dnd/interesting-locations/"><li>Locations (Exotic)</li></a>
+                        <a href="/dnd/magic-item-generator/"><li>Magic Items</li></a>
+                        <a href="/dnd/map-maker/"><li>Map Maker</li></a>
+                        <a href="/dnd/name-generator/"><li>Names</li></a>
+                        <a href="/dnd/non-combat-generator/"><li>Non-Combat</li></a>
+                        <a href="/dnd/npc-generator/"><li>NPCs</li></a>
+                        <a href="/dnd/outdoor-description-generator/"><li>Outdoor Descriptions</li></a>
+                        <a href="/dnd/random-plot-hooks-generator/"><li>Plot Hooks</li></a>
+                        <a href="/dnd/plot-twist-generator/"><li>Plot Twist</li></a>
+                        <a href="/dnd/puzzle-generator/"><li>Puzzles</li></a>
+                        <a href="/dnd/5e/random-monsters/"><li>Random Monster</li></a>
+                        <a href="/dnd/dungeon-room-description-generator/"><li>Room Descriptions</li></a>
+                        <a href="/dnd/session-start-generator/"><li>Session Start</li></a>
+                        <a href="/dnd/town-generator/"><li>Towns</li></a>
+                        <a href="/dnd/trap-generator/"><li>Traps</li></a>
+	               		<a href="/dnd/5e/treasure-generator/"><li>Treasure Drops</li></a>
+                        <a href="/dnd/villain-generator/"><li>Villains (BBEG)</li></a>
+                        <a href="/dnd/wilderness-travel/"><li>Wilderness Travel</li></a>
+                        <a href="/dnd/world-map/"><li>World</li></a>
+    		    	</ul>
+                    <li onclick="tD(this.nextSibling.nextSibling,'block')"><strong><a href="/dnd/one-shots/">Modules</a></strong></li>
+                    <ul style="display:block;" class="ter">
+                        <a href="/dnd/adventure/no-prep-module-mining-expedition/"><li>Mine Quest</li></a>
+                        <a href="/dnd/no-prep-module-ogre-problem/"><li>Ogre Problem</li></a>
+                        <a href="/dnd/no-prep-module-aquatic-revolution/"><li>Aquatic Revolution</li></a>
+                        <a href="/dnd/campaign-starter-vampiric-intrigue/"><li>Vampiric Intrigue</li></a>
+                        <a href="/dnd/no-prep-module-flushed-fey/"><li>No Prep Flushed Fey</li></a>
+                        <a href="/dnd/no-prep-module-perfect-chimera/"><li>No Prep Perfect Chimera</li></a>
+                        <a href="/dnd/no-prep-module-metal-meteor/"><li>No Prep Metal Meteor</li></a>
+                        <a href="/dnd/dungeon-crawl-thief-guild-ransom/"><li>Dungeon Crawl Ransom</li></a>
+                        <a href="/dnd/free-campaign-starter-corrupted-nobility/"><li>Free Campaign Corrupted Nobility</li></a>
+                        <a href="/dnd/no-prep-module-terror-from-the-deep/"><li>No Prep Deep Terror</li></a>
+                        <a href="/dnd/no-prep-module-elemental-power/"><li>No Prep Elemental Power</li></a>
+                        <a href="/dnd/no-prep-module-demonic-well/"><li>No Prep Demonic Well</li></a>
+                        <a href="/dnd/no-prep-module-light-and-shadow/"><li>No Prep Light and Shadow</li></a>
+                        <a href="/dnd/free-dungeon-temple-of-shifting-sands/"><li>Free Dungeon Shifting Sands</li></a>
+                        <a href="/dnd/no-prep-dungeon-undead-plague/"><li>No Prep Undead Plague</li></a>
+                        <a href="/dnd/premium-only-module/"><li>The Beast of the Frozen Wastes</li></a>
+                        <a href="/dnd/no-prep-module-the-bank-heist/"><li>No Prep Bank Heist</li></a>
+                        <a href="/dnd/session/no-prep-module-clockwork-war-machine/"><li>No Prep Clockwork War</li></a>
+                        <a href="/dnd/no-prep-module-ruined-city/"><li>No Prep Module</li></a>
+                        <a href="/dnd/free-module-chief-trial/"><li>Trial of Chiefs</li></a>
+                        <a href="/dnd/play-solo-dnd-with-a-twist/"><li>Solo D&amp;D</li></a>
+                        <a href="/dnd/two-player-adventure-undead-snakes/"><li>2 player: Undead Snakes</li></a>
+                        <a href="/dnd/free-module-plane-of-water/"><li>Plane of Water</li></a>
+                        <a href="/dnd/two-player-dnd-module/"><li>Two Player D&amp;D</li></a>
+                        <a href="/dnd/free-module-eternal-revenge/"><li>Eternal Revenge</li></a>
+                        <a href="/dnd/mini-module-sky-pirates/"><li>Sky Pirates</li></a>
+    					<a href="/dnd/one-shots/"><li>[More]</li></a>
+                    </ul>
+    				<li onclick="tD(this.nextSibling.nextSibling,'block')"><strong>Articles</strong></li>
+    					<ul style="display:block;" class="ter">
+                        <a href="/dnd/5e/how-to-choose-your-class-quiz/"><li>Class Quiz</li></a>
+                        <a href="/dnd/5e/youre-using-darkvision-wrong/"><li>You're Using Darkvision Wrong</li></a>
+                        <a href="/dnd/speed-up-combat/"><li>Speed Up Combat</li></a>
+                        <a href="/dnd/how-to-choose-your-alignment-quiz/"><li>Alignment Quiz</li></a>
+    					<a href="/dnd/exploring-backstories/"><li>Exploring Backstories</li></a>
+    					<a href="/dnd/make-tactical-memorable-combat/"><li>Tactical Combat</li></a>
+    					<a href="/dnd/make-3d-dungeon-tiles-for-one-dollar/"><li>Make 3D Dungeon Tiles for $1</li></a>
+    					<a href="/dnd/dm-lessons-pt1/"><li>DM Lessons</li></a>
+    					<a href="/dnd/types-of-players/"><li>Types of Players</li></a>
+    					<a href="/dnd/tips-to-motivate-your-players/"><li>Tips To Motivate Your Players</li></a>
+    					<a href="/dnd/youre-using-traps-wrong/"><li>You're Using Traps Wrong</li></a>
+    					<a href="/dnd/ask-your-players-how-they-feel/"><li>Ask Your Players How They Feel</li></a>
+    					<a href="/dnd/cheap-miniatures/"><li>Ultimate Guide to Cheap Minis</li></a>
+    					<a href="/dnd/how-to-overcome-dm-anxiety/"><li>Overcome DM Anxiety</li></a>
+    					<a href="/dnd/fix-dm-burnout/"><li>Fix DM Burnout</li></a>
+    					<a href="/dnd/how-does-stealth-work/"><li>How stealth works</li></a>
+    					<a href="/dnd/myth-of-the-adversarial-dm/"><li>Adversarial DM</li></a>
+    					<a href="/dnd/reusable-status-markers/"><li>Reusable Status Markers</li></a>
+    					<a href="/dnd/start-with-tragedy/"><li>Start With Tragedy</li></a>
+    					<a href="/dnd/four-ways-to-speed-up-game-prep/"><li>4 Ways to Speed Up Game Prep</li></a>
+    					<a href="/dnd/how-to-roleplay/"><li>How To Roleplay</li></a>
+    					<a href="/dnd/what-to-do-when-players-cancel/"><li>What To Do When Players Cancel</li></a>
+    					<a href="/dnd/#a3"><li>[More]</li></a>
+    				</ul>
+    			</ul>
+    			<li onclick="tD(this.nextSibling.nextSibling,'block')"><a href="/games/">Games</a></li>
+    			<ul  class="sec">
+    				<li onclick="tD(this.nextSibling.nextSibling,'block')">Rogue Legend 2</li>
+                    <ul class="ter">
+    					<a href="/rogue-legend-2/"><li>Info &amp; Download</li></a>
+    					<a href="/rogue-legend-2/devlogs/"><li>Devlogs</li></a>
+    					<a href="/content/rogue-legend-2/wiki/index.php?title=Main_Page"><li>Wiki</li></a>
+                        <a href="https://kassoon.itch.io/rogue-legend-2/community"><li>Forums</li></a>
+    				</ul>
+
+                    <a href="/games/rogue-legend-tame-the-wild/"><li>Rogue Legend: Tame the Wild </li></a>
+                    <a href="/games/cerberus-lord-of-the-underworld/"><li>Cerberus: Lord of the Underworld </li></a>
+    				<a href="/games/graidkarupachi/"><li>GRAIDKARUPACHI </li></a>
+    				<li onclick="tD(this.nextSibling.nextSibling,'block')"><a href="/games/">Mods</a></li>
+    				<ul class="ter">
+    					<a href="/games/savagel2/"><li>SavageL2 (Emulator) </li></a>
+    					<a href="/games/fortress/"><li>Fortress (Prototype) </li></a>
+    				</ul>
+
+    				<li onclick="tD(this.nextSibling.nextSibling,'block')"><a href="/snes/">SNES</a></li>
+    				<ul class="ter">
+    					<li onclick="tD(this.nextSibling.nextSibling,'block')"><a href="/snes/harvest-moon/">Harvest Moon</a></li>
+    					<ul class="quad">
+    						<a href="/snes/harvest-moon/powerberry-locations/"><li>Power Berries</li></a>
+    						<a href="/snes/harvest-moon/festivals/"><li>Festivals</li></a>
+    					</ul>
+    				</ul>
+    			</ul>
+
+    			<li onclick="tD(this.nextSibling.nextSibling,'block')">Warhammer</li>
+    			<ul  class="sec">
+    				 <a href="/warhammer/attack-roller/"><li>Attack Roller</li></a>
+    			</ul>
+
+                <li onclick="tD(this.nextSibling.nextSibling,'block')">Pathfinder</li>
+    			<ul  class="sec">
+    				 <a href="/dnd/pf2e/character-sheet/"><li>2e Character Sheet</li></a>
+    			</ul>
+
+    			<li onclick="tD(this.nextSibling.nextSibling,'block')"><a href="/lists/">Neat</a></li>
+    			<ul  class="sec">
+    				<a href="/stopwatch/"><li>Stopwatch </li></a>
+    				<a href="/apps/textify/"><li>Textify </li></a>
+    				<a href="/apps/screensavers/"><li>Screensavers </li></a>
+              		<a href="/pictures/"><li>Pictures</li></a>
+              		<a href="/neat/censorship-leads-to-war/"><li>Censorship Leads to War</li></a>
+    			</ul>
+                                <a href="/premium/"><li><strong>Premium</strong></li></a>                <a target="_blank" href="https://teespring.com/kassoon"><li><strong>Merch</strong></li></a>
+
+    		</ul>
+    	</div>
+        <br />
+
+    	<div id="userInfo">
+    		<div id="greeting" style="font-weight:bold;line-height:28px;"><br/><a href='/premium/'>Get Premium</a></div>
+    		<div id="loginDiv">
+<form action="/login/" method="post">
+Make campaigns and save <a href="/dnd/encounter-builder/">encounters</a> / <a href="/dnd/combat-tracker/">combats</a> / <a href="/dnd/dice-roller/">dice rolls</a> and more. One step!<br/>
+<p><table>
+<tr>
+<td>Username:</td> <td><input placeholder="Username" maxlength="25" class="small" value="" id="userInp" type="text" name="username"/></td>
+</tr><tr>
+<td>Password:</td> <td><input placeholder="Password" class="small" id="passInp" type="password" name="password"/></td>
+</tr><tr>
+<td style="text-align:center;" colspan="2"><input type="submit" id="subInp" class="sitebtn" name="login" value="Log In"/></td>
+</tr><tr>
+  <td style="text-align:right;font-size: 12px;" colspan="2"><a href="/forgot/">Forgot?</a></td>
+</tr>
+<td></form><form action="/login/" method="post"><h2>Register</h2></td>
+<tr>
+<td>Username:</td> <td><input placeholder="Username" maxlength="25" class="small" value="" type="text" name="username"/></td>
+</tr><tr>
+<td>Password:</td> <td><input placeholder="Password" class="small" type="password" name="password"/></td>
+</tr><tr>
+<td>Recovery Email (Optional):</td><td><input placeholder="Email" maxlength="50" onkeypress="return sbReg(event);" value="" style="margin-top:5px;" class="small" id="emailInp" type="text" name="email"/></td>
+</tr><tr>
+<td colspan="2" style="text-align:center;"><input type="submit" id="regInp" class="sitebtn" name="register" value="Register"/></td>
+</tr>
+</table>
+<input type="hidden" value="/?page=dnd&subpage=npc-generator&reqRace=7&useSeed=on&seed=125261" name="prevPage" />
+</form></p><p><a href="/gift-premium/">Gift Premium</a></p>            </div>
+    		<div style="font-size:12px;">
+
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                    <input name="cmd" value="_donations" type="hidden">
+                    <input name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----" type="hidden">
+                    <input name="currency_code" value="USD" type="hidden">
+                    <input name="business" value="kassoon@kassoon.com" type="hidden">
+                    <input name="item_name" value="kassoon.com donation" type="hidden">
+                    <input name="notify_url" value="https://www.kassoon.com/paypal" type="hidden">
+                    <input style="max-width:100%" class="sprite sprite-paypal" name="submit" type="image" value="" border="0">
+                    <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" border="0">
+                </form>
+                <p>
+                <input type="button" class="sitebtn" value="CONFETTI" onclick="doConfet()" />
+                </p>
+    	    </div>
+    	</div>
+    </div>
+
+	<div id="footContent">
+        <br />
+        <div style="clear:both;">
+
+            <div style="font-size:20px;margin-bottom:20px;color:#7b7660;clear:both;">
+                <a style="float:left;" href="/sitemap/">Feed</a>
+                <a style="text-decoration:none;display:block;float:right;" href="/site/rss.xml"><div class="sprite sprite-rss"></div></a>
+            </div>
+        </div><br/>
+        <ul><li><a href='/dnd/house-map-generator/'>House Map Generator </a> (2021-07-16)</li><li><a href='/dnd/session-start-generator/'>Session Start Generator </a> (2021-07-14)</li><li><a href='/dnd/make-a-session/'>Make A Session </a> (2021-07-14)</li><li><a href='/dnd/'>D&amp;D </a> (2021-07-14)</li><li><a href='/dnd/5e/proficiency/'>D&amp;D Proficiency </a> (2021-07-11)</li><li><a href='/dnd/town-generator/'>Town Generator </a> (2021-07-09)</li><li><a href='/dnd/map/'>Grid Map </a> (2021-07-07)</li><li><a href='/dnd/grid-map-update-four/'>Big Grid Map Update #4 </a> (2021-07-07)</li></ul>        <a style="float:right;" href="/sitemap/">Sitemap</a>
+        <a href="/news/">Archive</a>
+        <a style="clear: both;float:right;" href="/terms-conditions-privacy/">Privacy</a>
+    </div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- TopRight Box -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-full-width-responsive="true"
+     data-ad-client="ca-pub-8011755778530070"
+     data-ad-slot="3739919300"
+     data-ad-format="auto"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+</div>
+
+<div class="cl"></div>
+
+<noscript><div class="nojs">Javascript loves you.</div></noscript>
+
+</div> <!-- Main -->
+
+<script>
+	var divid = "WITAbmUu";
+</script>
+<script type="text/javascript" src="/site/showads.js" async></script>
+<script data-ad-client="ca-pub-8011755778530070" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 class SettingsTab(app: App, private val plugin: DndPlugin) : PluginSettingTab(app, plugin) {
     override fun display() {
         val container = containerEl
+		// TODO Not sure how to define these functions on container
         js("container.empty();")
         js("container.createEl('h2', { text: 'Dnd Generator Plugin settings.' });")
 

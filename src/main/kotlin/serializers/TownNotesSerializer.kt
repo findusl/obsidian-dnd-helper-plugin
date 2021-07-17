@@ -14,16 +14,20 @@ class TownNotesSerializer(
         val townFolderPath = "${settings.townBasePath}/${town.name}"
         vault.createFolder(townFolderPath)
         val townFilePath = "$townFolderPath/${town.name}.md"
-        vault.create(townFilePath, townTemplate(town))
+        vault.create(townFilePath, town.toMarkdown())
+
+        // TODO add section for npc per occupation.
+        // use tags where useful. One can see nested tags in pages
+        // Add forth and back links for npcs
     }
 }
 
-private fun townTemplate(town: Town) = """
-    # ${town.name}, ${town.type}
-    [Permalink](${town.url})
+private fun Town.toMarkdown() = """
+    # $name, $type
+    [Permalink]($url)
     ### Stats
-    - **Population**: ${town.population} people
-    - **Size**: ${town.size}
-    - **Demographics**: ${town.demographics}
-    - **Wealth**: ${town.wealth}
+    - **Population**: $population people
+    - **Size**: $size
+    - **Demographics**: $demographics
+    - **Wealth**: $wealth
 """.trimIndent()
