@@ -14,6 +14,7 @@ open class WebsiteLoader {
      */
     internal suspend fun loadKassoonWebsite(relativeUrl: String): Document {
         val fullUrl = prefixLocalCorsAvoidance + relativeUrl
+        console.log("Loading website $fullUrl")
         val response = window.fetch(Request(fullUrl)).await()
         val htmlText = response.text().await()
         return DOMParser().parseFromString(htmlText, "text/html")

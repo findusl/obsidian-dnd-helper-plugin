@@ -21,8 +21,19 @@ abstract class AbstractTownParser {
 
         fun build(): Town {
             // throws exceptions if not all values were set
-            return Town(name, type, url, population, size, demographics, wealth,
-                description, defenses, services, characters)
+            return Town(
+                name = name,
+                type = type,
+                url = url,
+                population = population,
+                size = size,
+                demographics = demographics,
+                wealth = wealth,
+                description = description,
+                defenses = defenses,
+                services = services,
+                characters = characters
+            )
         }
     }
 }

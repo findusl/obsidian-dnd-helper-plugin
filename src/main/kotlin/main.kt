@@ -1,4 +1,4 @@
-import extensions.CommandImpl
+import util.CommandImpl
 import kotlinx.coroutines.*
 import parsers.KassoonTownParser
 import serializers.TownNotesSerializer
@@ -62,7 +62,7 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
     private suspend fun parseKassoonTownWebsite(url: String): Town {
         val document = websiteLoader.loadKassoonWebsite(url)
         println("Got document from $url")
-        val townParser = KassoonTownParser()
-        return townParser.parseKassoonTown(document)
+        val townParser = KassoonTownParser(document)
+        return townParser.parseKassoonTown()
     }
 }

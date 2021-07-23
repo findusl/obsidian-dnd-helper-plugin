@@ -1,19 +1,18 @@
 package parsers
 
 import Town
-import extensions.*
 import org.w3c.dom.Document
 import org.w3c.dom.Element
+import util.*
 
-class KassoonTownParser : AbstractTownParser() {
+class KassoonTownParser(private val document: Document) : AbstractTownParser() {
 
     private val townBuilder = TownBuilder()
-    private val shopParser = KassoonServiceParser()
+    private val servicesParser = KassoonServicesParser()
 
-    suspend fun parseKassoonTown(document: Document): Town {
+    suspend fun parseKassoonTown(): Town {
         val contentNode = document.getElementById("content") ?: throw NoSuchElementException("Missing content.")
         val nodes = contentNode.children
-        console.log("TownParser: There are ${nodes.length} nodes")
         nodes.iterator().asSequence()
             .dropWhile { !it.isH2() }
             .consumeTownHeader()
@@ -35,13 +34,15 @@ class KassoonTownParser : AbstractTownParser() {
             // shop index
             .consumeOne { node ->
                 console.log("Consuming Shop names")
-                shopParser.extractServiceNames(node)
+                servicesParser.extractServiceNames(node)
             }
 
-        val shops = shopParser.extractKassoonServicesFromHTML(contentNode)
+        val contentHtml = contentNode.innerHTML
+
+        val shops = servicesParser.extractServicesFromHTML(contentHtml)
         townBuilder.services.addAll(shops)
 
-        // townBuilder.characters.addAll(contentNode.detectCharacters())
+        townBuilder.characters.addAll(detectAndParseKassoonCharactersFromHTML(contentHtml))
 
         val result = townBuilder.build()
         console.log("Result of Town parsing: $result")
@@ -49,7 +50,8 @@ class KassoonTownParser : AbstractTownParser() {
     }
 
     private fun Sequence<Element>.consumeTownHeader() = consumeOne { node ->
-        val townHeaderRegex = Regex("""([\w\s]*?), ([\w\s]*?) .*? href="(.*?)">.*?""")
+        // TODO CHECK REGEX that lazy matching looks suspicious
+        val townHeaderRegex = Regex("""([^,]*), ([\w\s]*?) .*? href="([^"]*)">""")
         val matchResult = townHeaderRegex.matchOrThrow(node.innerHTML, "Town header")
         val (name, type, url) = matchResult.destructured
         townBuilder.name = name

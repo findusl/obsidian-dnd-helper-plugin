@@ -38,8 +38,11 @@ val pluginPath = "/Users/slehrbaum/OneDrive/My_DND5e_Campaign/.obsidian/plugins/
 val pluginFolder = file(pluginPath)
 
 val copyPluginTask by tasks.register<Copy>("copyToObsidianVault") {
-    from(layout.buildDirectory.file("distributions/main.js")) // TODO add the manifest file
+    from(
+        layout.buildDirectory.file("distributions/main.js"),
+        layout.buildDirectory.file("distributions/main.js.map")
+    ) // TODO add the manifest file
     into(pluginFolder)
-    dependsOn("build")
+    dependsOn("browserDistribution")
     group = "obsidian"
 }

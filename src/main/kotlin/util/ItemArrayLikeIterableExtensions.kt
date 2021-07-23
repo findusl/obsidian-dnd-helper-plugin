@@ -1,4 +1,4 @@
-package extensions
+package util
 
 import org.w3c.dom.ItemArrayLike
 

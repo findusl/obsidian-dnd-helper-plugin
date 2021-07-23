@@ -16,7 +16,16 @@ abstract class AbstractServiceParser {
 
         fun build(): Service {
             // throws exceptions if not all values were set
-            return Service(name, type, owner, locationDescription, description, mapLink, specials, patrons)
+            return Service(
+                name = name,
+                type = type,
+                owner = owner,
+                locationDescription = locationDescription,
+                description = description,
+                mapLink = mapLink,
+                specials = specials,
+                patrons = patrons
+            )
         }
     }
 }

@@ -1,4 +1,4 @@
-package extensions
+package util
 
 /**
  * Immediately takes the first element from the sequence and passes it to [consumer]. Then returns the remaining sequence.

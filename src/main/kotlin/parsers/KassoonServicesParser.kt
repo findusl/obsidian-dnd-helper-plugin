@@ -1,12 +1,12 @@
 package parsers
 
 import Service
-import extensions.camelCaseToCapitalizedSentenceCase
-import extensions.cleanHtmlText
-import extensions.removeLineBreaks
+import util.camelCaseToCapitalizedSentenceCase
+import util.cleanHtmlText
+import util.removeLineBreaks
 import org.w3c.dom.Element
 
-class KassoonServiceParser: AbstractServiceParser() {
+class KassoonServicesParser {
     private var serviceNames = mutableListOf<String>()
 
     fun extractServiceNames(serviceIndexParagraph: Element) {
@@ -19,18 +19,17 @@ class KassoonServiceParser: AbstractServiceParser() {
         console.log("Extracted shopNames $serviceNames")
     }
 
-    fun extractKassoonServicesFromHTML(contentNode: Element): List<Service> {
+    fun extractServicesFromHTML(html: String): List<Service> {
         if (serviceNames.isEmpty())
             throw UninitializedPropertyAccessException("The shop names have not yet been parsed")
-        val contentHtml = contentNode.innerHTML
         // consider starting to match from index of <h2>Shops</h2>. then maybe continue to match from the previous match,
         // as the index should have been in order.
 
         val shops = mutableListOf<Service>()
         for (serviceId in serviceNames) {
-            var service = tryMatchShop(serviceId, contentHtml)
+            var service = tryMatchShop(serviceId, html)
             if (service == null) {
-                service = tryMatchHousing(serviceId, contentHtml)
+                service = tryMatchHousing(serviceId, html)
                 if (service == null)
                     continue
             }
