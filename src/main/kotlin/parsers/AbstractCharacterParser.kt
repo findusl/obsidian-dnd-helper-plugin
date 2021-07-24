@@ -1,6 +1,6 @@
 package parsers
 
-import Character
+import models.Character
 
 abstract class AbstractCharacterParser {
 

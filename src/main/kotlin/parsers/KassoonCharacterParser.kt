@@ -1,8 +1,8 @@
 package parsers
 
-import Character
+import models.Character
 import Notice
-import WebsiteLoader
+import util.WebsiteLoader
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
@@ -43,7 +43,7 @@ class KassoonCharacterParser(private val document: Document): AbstractCharacterP
 
     private fun Sequence<Element>.consumeCharacterHeader() = consumeOne { node ->
         val charHeaderRegex = Regex("""([^,]*), ([\w]*) ([\w-]*).*?href="([^"]*)">""")
-        val matchResult = charHeaderRegex.matchOrThrow(node.innerHTML, "Character header.")
+        val matchResult = charHeaderRegex.matchOrThrow(node.innerHTML, "models.Character header.")
         val (name, gender, race, url) = matchResult.destructured
         characterBuilder.name = name
         characterBuilder.gender = gender
@@ -55,36 +55,36 @@ class KassoonCharacterParser(private val document: Document): AbstractCharacterP
     private fun Sequence<Element>.consumeCharacterDescription() = consumeOne { node ->
         console.log("Consuming char description ${node.id}")
         characterBuilder.description = node.textContent
-            .handle("Character description.")
-            .removePrefix("Description: ").trim()
+            .handle("models.Character description.")
+            .removePrefix("Description:").trim()
     }
 
     private fun Sequence<Element>.consumeCharacterPersonality() = consumeOne { node ->
         console.log("Consuming char personality ${node.id}")
         characterBuilder.personality = node.textContent
-            .handle("Character personality.")
-            .removePrefix("Personality: ").trim()
+            .handle("models.Character personality.")
+            .removePrefix("Personality:").trim()
     }
 
     private fun Sequence<Element>.consumeCharacterHistory() = consumeOne { node ->
         console.log("Consuming char history ${node.id}")
         characterBuilder.history = node.textContent
-            .handle("Character history.")
-            .removePrefix("History: ").trim()
+            .handle("models.Character history.")
+            .removePrefix("History:").trim()
     }
 
     private fun Sequence<Element>.consumeCharacterMotivation() = consumeOne { node ->
         console.log("Consuming char motivation ${node.id}")
         characterBuilder.motivation = node.textContent
-            .handle("Character motivation.")
-            .removePrefix("Motivation: ").trim()
+            .handle("models.Character motivation.")
+            .removePrefix("Motivation:").trim()
     }
 
     private fun Sequence<Element>.consumeCharacterVoice() = consumeOne { node ->
-        console.log("Consuming char motivation ${node.id}")
-        characterBuilder.motivation = node.textContent
-            .handle("Character motivation.")
-            .removePrefix("Motivation: ").trim()
+        console.log("Consuming char voice ${node.id}")
+        characterBuilder.voice = node.textContent
+            .handle("models.Character motivation.")
+            .removePrefix("Voice:").trim()
     }
 
     private fun Sequence<Element>.consumeCharacterMiscItems() = consumeOne { node ->
@@ -97,7 +97,7 @@ class KassoonCharacterParser(private val document: Document): AbstractCharacterP
         val bondsRegex = Regex("""Bonds: ([^.]*)""")
         val bonds = bondsRegex.find(text)?.groupValues?.get(1)
         val occupationRegex = Regex("""Occupation: ([^.]*)""")
-        val occupation = occupationRegex.matchOrThrow(text, "Character ideals").groupValues[1]
+        val occupation = occupationRegex.matchOrThrow(text, "models.Character ideals").groupValues[1]
         characterBuilder.ideals = ideals?.trim()
         characterBuilder.flaws = flaws?.trim()
         characterBuilder.bonds = bonds?.trim()

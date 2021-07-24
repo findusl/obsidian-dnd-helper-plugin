@@ -1,6 +1,6 @@
 package parsers
 
-import Service
+import models.Service
 
 abstract class AbstractServiceParser {
 

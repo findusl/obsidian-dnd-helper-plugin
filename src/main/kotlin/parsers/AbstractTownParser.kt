@@ -1,8 +1,8 @@
 package parsers
 
-import Character
-import Service
-import Town
+import models.Character
+import models.Service
+import models.Town
 
 abstract class AbstractTownParser {
 

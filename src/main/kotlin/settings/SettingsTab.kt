@@ -1,3 +1,10 @@
+package settings
+
+import App
+import DndPlugin
+import PluginSettingTab
+import Setting
+
 class SettingsTab(app: App, private val plugin: DndPlugin) : PluginSettingTab(app, plugin) {
     override fun display() {
         val container = containerEl

@@ -1,3 +1,5 @@
+package models
+
 data class Town(
     val name: String,
     val type: String,

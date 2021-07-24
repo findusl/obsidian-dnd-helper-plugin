@@ -1,6 +1,6 @@
 package parsers
 
-import Town
+import models.Town
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import util.*
@@ -20,15 +20,15 @@ class KassoonTownParser(private val document: Document) : AbstractTownParser() {
             // Stats section
             .consumeStats()
             .dropWhile { !"townDesc".equals(it.id, ignoreCase = true) }
-            // General Town Description
+            // General models.Town Description
             .consumeOne { node ->
-                console.log("Consuming Town description")
-                townBuilder.description = node.textContent.handle("Town Description")
+                console.log("Consuming models.Town description")
+                townBuilder.description = node.textContent.handle("models.Town Description")
                     .cleanHtmlText()
             }
             .consumeOne { node ->
-                console.log("Consuming Town defense")
-                townBuilder.defenses = node.textContent.handle("Town Defense")
+                console.log("Consuming models.Town defense")
+                townBuilder.defenses = node.textContent.handle("models.Town Defense")
                     .cleanHtmlText().removePrefix("Defenses: ")
             }
             // shop index
@@ -45,14 +45,14 @@ class KassoonTownParser(private val document: Document) : AbstractTownParser() {
         townBuilder.characters.addAll(detectAndParseKassoonCharactersFromHTML(contentHtml))
 
         val result = townBuilder.build()
-        console.log("Result of Town parsing: $result")
+        console.log("Result of models.Town parsing: $result")
         return result
     }
 
     private fun Sequence<Element>.consumeTownHeader() = consumeOne { node ->
         // TODO CHECK REGEX that lazy matching looks suspicious
         val townHeaderRegex = Regex("""([^,]*), ([\w\s]*?) .*? href="([^"]*)">""")
-        val matchResult = townHeaderRegex.matchOrThrow(node.innerHTML, "Town header")
+        val matchResult = townHeaderRegex.matchOrThrow(node.innerHTML, "models.Town header")
         val (name, type, url) = matchResult.destructured
         townBuilder.name = name
         townBuilder.type = type

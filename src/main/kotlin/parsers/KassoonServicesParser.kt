@@ -1,6 +1,6 @@
 package parsers
 
-import Service
+import models.Service
 import util.camelCaseToCapitalizedSentenceCase
 import util.cleanHtmlText
 import util.removeLineBreaks
@@ -98,7 +98,7 @@ private fun tryMatchHousing(housingId: String, contentHtml: String): Service? {
     }
     val (name, owner, mapLink, description) = match.destructured
     val completeMapLink = mapLink.completeMapLink()
-    val type = housingId.camelCaseToCapitalizedSentenceCase().removePrefix("Town ")
+    val type = housingId.camelCaseToCapitalizedSentenceCase().removePrefix("models.Town ")
 
     console.log("Extracted housing $name")
     return Service(

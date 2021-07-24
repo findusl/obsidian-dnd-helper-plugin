@@ -1,7 +1,10 @@
 import util.CommandImpl
 import kotlinx.coroutines.*
+import models.Town
 import parsers.KassoonTownParser
-import serializers.TownNotesSerializer
+import settings.Settings
+import settings.SettingsTab
+import util.WebsiteLoader
 
 @Suppress("EXPERIMENTAL_IS_NOT_ENABLED") // works just fine, stop complaining
 @OptIn(ExperimentalJsExport::class)
@@ -39,7 +42,7 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
     private fun generateRandomTown() = coroutineScope.launch {
         try {
             val town = parseKassoonTownWebsite("/dnd/town-generator/10/518707/")
-            TownNotesSerializer(app.vault, settings, town).serialize()
+            NotePersistingService(app.vault, settings.copy()).persistTown(town)
         } catch (e: Exception) {
             Notice("There was an error trying to parse the town. Maybe the Kassoon website changed slightly, that breaks it.")
             e.printStackTrace()
