@@ -1,5 +1,8 @@
+import kotlinx.coroutines.await
+import models.Character
 import models.Service
 import models.Town
+import serializers.CharacterMarkdownSerializer
 import serializers.ServiceMarkdownSerializer
 import serializers.TownMarkdownSerializer
 import settings.Settings
@@ -10,26 +13,43 @@ class NotePersistingService(
     private val settings: Settings
 ) {
 
-    fun persistTown(town: Town) {
+    private val recentlyCreated = mutableListOf<TAbstractFile>()
+
+    /**
+     * Creates the files and returns a list of created files.
+     */
+    suspend fun persistTown(town: Town): List<TAbstractFile> {
         val sanitizedTownName = town.name.sanitizeFileName()
         val townFolderPath = "${settings.townBasePath}/${sanitizedTownName}"
-        vault.createFolder(townFolderPath)
+        vault.createFolder(townFolderPath).await()
+        vault.getAbstractFileByPath(townFolderPath)?.let { recentlyCreated.add(it) }
 
         val townFilePath = "$townFolderPath/${sanitizedTownName}.md"
         val townFileContent = TownMarkdownSerializer.serialize(town)
-        vault.create(townFilePath, townFileContent)
+        vault.create(townFilePath, townFileContent).await().let { recentlyCreated.add(it) }
 
         val serviceMarkdownSerializer = ServiceMarkdownSerializer(town)
         town.services.forEach { service ->
             persistService(service, townFolderPath, serviceMarkdownSerializer)
         }
+        town.characters.forEach { character ->
+            persistCharacter(character)
+        }
+        return recentlyCreated
     }
 
-    private fun persistService(service: Service, townFolderPath: String, serializer: ServiceMarkdownSerializer) {
+    private suspend fun persistService(service: Service, townFolderPath: String, serializer: ServiceMarkdownSerializer) {
         val sanitizedServiceName = service.name.sanitizeFileName()
         val serviceFilePath = "$townFolderPath/${sanitizedServiceName}.md"
         val serviceFileContent = serializer.serialize(service)
-        vault.create(serviceFilePath, serviceFileContent)
+        vault.create(serviceFilePath, serviceFileContent).await().let { recentlyCreated.add(it) }
+    }
+
+    private suspend fun persistCharacter(character: Character) {
+        val sanitizedCharacterName = character.name.sanitizeFileName()
+        val characterFilePath = "${settings.characterBasePath}/${sanitizedCharacterName}.md"
+        val characterFileContent = CharacterMarkdownSerializer.serialize(character)
+        vault.create(characterFilePath, characterFileContent).await().let { recentlyCreated.add(it) }
     }
 
 }

@@ -1,6 +1,5 @@
 package serializers
 
-import models.Character
 import models.Town
 import util.plus
 

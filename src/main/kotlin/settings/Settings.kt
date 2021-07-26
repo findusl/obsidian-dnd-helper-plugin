@@ -1,5 +1,6 @@
 package settings
 
-data class Settings(
-    var townBasePath: String = "Places/Towns"
+class Settings(
+    val townBasePath: String = "",
+    val characterBasePath: String = ""
 )

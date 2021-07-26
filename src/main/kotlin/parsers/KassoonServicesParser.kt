@@ -59,7 +59,7 @@ private fun tryMatchShop(shopId: String, contentHtml: String): Service? {
 
     console.log("Extracted shop $name")
     return Service(
-        name, type, owner.cleanHtmlText(), location.cleanHtmlText(),
+        name.cleanHtmlText(), type, owner.cleanHtmlText(), location.cleanHtmlText(),
         description.cleanHtmlText(), completeMapLink, specials, patrons
     )
 }

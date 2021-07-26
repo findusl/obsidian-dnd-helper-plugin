@@ -2,17 +2,13 @@ package parsers
 
 import models.Character
 import Notice
-import util.WebsiteLoader
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.ParentNode
-import util.consumeOne
-import util.iterator
-import util.matchOrThrow
-import util.unescapeHTML
+import util.*
 
 class KassoonCharacterParser(private val document: Document): AbstractCharacterParser() {
 
@@ -56,35 +52,35 @@ class KassoonCharacterParser(private val document: Document): AbstractCharacterP
         console.log("Consuming char description ${node.id}")
         characterBuilder.description = node.textContent
             .handle("models.Character description.")
-            .removePrefix("Description:").trim()
+            .removePrefix("Description:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterPersonality() = consumeOne { node ->
         console.log("Consuming char personality ${node.id}")
         characterBuilder.personality = node.textContent
             .handle("models.Character personality.")
-            .removePrefix("Personality:").trim()
+            .removePrefix("Personality:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterHistory() = consumeOne { node ->
         console.log("Consuming char history ${node.id}")
         characterBuilder.history = node.textContent
             .handle("models.Character history.")
-            .removePrefix("History:").trim()
+            .removePrefix("History:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterMotivation() = consumeOne { node ->
         console.log("Consuming char motivation ${node.id}")
         characterBuilder.motivation = node.textContent
             .handle("models.Character motivation.")
-            .removePrefix("Motivation:").trim()
+            .removePrefix("Motivation:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterVoice() = consumeOne { node ->
         console.log("Consuming char voice ${node.id}")
         characterBuilder.voice = node.textContent
             .handle("models.Character motivation.")
-            .removePrefix("Voice:").trim()
+            .removePrefix("Voice:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterMiscItems() = consumeOne { node ->
@@ -106,15 +102,56 @@ class KassoonCharacterParser(private val document: Document): AbstractCharacterP
 }
 
 suspend fun detectAndParseKassoonCharactersFromHTML(html: String): List<Character> {
-    val characterRegex = Regex("""["'](/\?page=dnd&amp;subpage=npc-generator&amp;[^"']*)["']""")
-    val allMatches = characterRegex.findAll(html)
+    val characterRegexWithName =
+        Regex("""([^.>]*)<a[^>]*?href=["'](/\?page=dnd&amp;subpage=npc-generator&amp;[^"']*)["']>([^<]*)""")
+    val allMatches = characterRegexWithName.findAll(html)
     console.log("Found ${allMatches.count()} characters")
     return allMatches.asFlow()
         .map {
-            val url = it.groupValues[1].unescapeHTML()
+            val (preLinkText, url, linkText) = it.destructured
 
-            val characterDocument = WebsiteLoader().loadKassoonWebsite(url)
-            KassoonCharacterParser(characterDocument).parseKassoonCharacter()
+            val characterDocument = WebsiteLoader().loadKassoonWebsite(url.unescapeHTML())
+            var character = KassoonCharacterParser(characterDocument).parseKassoonCharacter()
+
+            character = tryFixName(linkText, preLinkText, character)
+
+            character = tryFixOccupation(linkText, preLinkText, character)
+            character
         }
         .toList()
+}
+
+private fun tryFixName(
+    linkText: String,
+    preLinkText: String,
+    character: Character
+): Character {
+    // The character name can differ between town and character page.
+    // That breaks linking so I try to set the name fitting the town page.
+    val hopefullyName = if (linkText.equals("[Details]", ignoreCase = true)) {
+        preLinkText.trim().substringBefore(',')
+    } else {
+        linkText.trim().substringBefore(',')
+    }
+    console.log("Replacing ${character.name} with $hopefullyName in the hopes it is correct")
+
+    return character.copy(name = hopefullyName)
+}
+
+private fun tryFixOccupation(
+    linkText: String,
+    preLinkText: String,
+    character: Character
+): Character {
+    // Some characters have special occupations called out in text but actually not matching on character page
+    var character1 = character
+    if (!linkText.equals("[Details]", ignoreCase = true)) {
+        val occupationRegex = Regex("""The (\w*)""")
+        val occupationMatch = occupationRegex.find(preLinkText)
+        if (occupationMatch != null) {
+            val newOccupation = occupationMatch.groupValues[1].replaceFirstChar { it.uppercaseChar() } + " (inconsistent)"
+            character1 = character1.copy(occupation = newOccupation)
+        }
+    }
+    return character1
 }

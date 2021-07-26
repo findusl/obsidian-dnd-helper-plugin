@@ -4,10 +4,10 @@ import org.w3c.dom.parsing.DOMParser
 import parsers.handle
 
 /**
- * This cleans the given text by removing any repeating spaces and newlines
+ * This cleans the given text by removing any repeating spaces and newlines and html symbols
  */
 fun String.cleanHtmlText(): String =
-    removeLineBreaks().replace(Regex("  +"), " ").trim()
+    unescapeHTML().removeLineBreaks().replace(Regex("  +"), " ").trim()
 
 fun String.removeLineBreaks(): String = replace("\n", "")
 
