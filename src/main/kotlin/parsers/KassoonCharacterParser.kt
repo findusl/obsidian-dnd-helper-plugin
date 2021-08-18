@@ -3,6 +3,7 @@ package parsers
 import models.Character
 import Notice
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.w3c.dom.Document
@@ -10,17 +11,16 @@ import org.w3c.dom.Element
 import org.w3c.dom.ParentNode
 import util.*
 
-class KassoonCharacterParser(private val document: Document): AbstractCharacterParser() {
+class KassoonCharacterParser(private val document: Document, private val logger: StepAwareLogger): AbstractCharacterParser() {
 
     private val characterBuilder = CharacterBuilder()
 
     fun parseKassoonCharacter(): Character {
         @Suppress("UNCHECKED_CAST_TO_EXTERNAL_INTERFACE") // why would parentNode not be a ParentNode?
         val contentNode = document.getElementById("npcTitle")?.parentNode as? ParentNode
-            ?: throw NoSuchElementException("Missing content.")
+            ?: logger.logAndThrow("Cannot find content node")
 
         val nodes = contentNode.children
-        console.log("TownParser: There are ${nodes.length} nodes")
         nodes.iterator().asSequence()
             .consumeCharacterHeader()
             .dropWhile { !"p3".equals(it.id, ignoreCase = true) }
@@ -39,7 +39,11 @@ class KassoonCharacterParser(private val document: Document): AbstractCharacterP
 
     private fun Sequence<Element>.consumeCharacterHeader() = consumeOne { node ->
         val charHeaderRegex = Regex("""([^,]*), ([\w]*) ([\w-]*).*?href="([^"]*)">""")
-        val matchResult = charHeaderRegex.matchOrThrow(node.innerHTML, "models.Character header.")
+        val matchResult = charHeaderRegex.find(node.innerHTML)
+        if (matchResult == null) {
+            logger.logError("Could not match header")
+            return@consumeOne
+        }
         val (name, gender, race, url) = matchResult.destructured
         characterBuilder.name = name
         characterBuilder.gender = gender
@@ -51,41 +55,41 @@ class KassoonCharacterParser(private val document: Document): AbstractCharacterP
     private fun Sequence<Element>.consumeCharacterDescription() = consumeOne { node ->
         console.log("Consuming char description ${node.id}")
         characterBuilder.description = node.textContent
-            .handle("models.Character description.")
+            .nullStringFallback("description textContent")
             .removePrefix("Description:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterPersonality() = consumeOne { node ->
         console.log("Consuming char personality ${node.id}")
         characterBuilder.personality = node.textContent
-            .handle("models.Character personality.")
+            .nullStringFallback("personality textContent")
             .removePrefix("Personality:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterHistory() = consumeOne { node ->
         console.log("Consuming char history ${node.id}")
         characterBuilder.history = node.textContent
-            .handle("models.Character history.")
+            .nullStringFallback("history textContent")
             .removePrefix("History:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterMotivation() = consumeOne { node ->
         console.log("Consuming char motivation ${node.id}")
         characterBuilder.motivation = node.textContent
-            .handle("models.Character motivation.")
+            .nullStringFallback("motivation textContent")
             .removePrefix("Motivation:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterVoice() = consumeOne { node ->
         console.log("Consuming char voice ${node.id}")
         characterBuilder.voice = node.textContent
-            .handle("models.Character motivation.")
+            .nullStringFallback("motivation textContent")
             .removePrefix("Voice:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterMiscItems() = consumeOne { node ->
         console.log("Consuming char misc (occ) ${node.id}")
-        val text = node.textContent.handle("Char misc content")
+        val text = node.textContent.nullStringFallback("Misc items textContent")
         val idealsRegex = Regex("""Ideals: ([^.]*)""")
         val ideals = idealsRegex.find(text)?.groupValues?.get(1)
         val flawsRegex = Regex("""Flaws: ([^.]*)""")
@@ -93,31 +97,49 @@ class KassoonCharacterParser(private val document: Document): AbstractCharacterP
         val bondsRegex = Regex("""Bonds: ([^.]*)""")
         val bonds = bondsRegex.find(text)?.groupValues?.get(1)
         val occupationRegex = Regex("""Occupation: ([^.]*)""")
-        val occupation = occupationRegex.matchOrThrow(text, "models.Character ideals").groupValues[1]
+        val occupation = occupationRegex.find(text)?.groupValues?.get(1)
         characterBuilder.ideals = ideals?.trim()
         characterBuilder.flaws = flaws?.trim()
         characterBuilder.bonds = bonds?.trim()
-        characterBuilder.occupation = occupation.trim()
+        characterBuilder.occupation = occupation?.trim().nullStringFallback("occupation")
+    }
+
+    private fun String?.nullStringFallback(variableName: String): String {
+        return logger.logIfNullAndFallback(this, variableName, "")
     }
 }
 
-suspend fun detectAndParseKassoonCharactersFromHTML(html: String): List<Character> {
+suspend fun detectAndParseKassoonCharactersFromHTML(html: String, parentLogger: StepAwareLogger? = null): List<Character> {
     val characterRegexWithName =
         Regex("""([^.>]*)<a[^>]*?href=["'](/\?page=dnd&amp;subpage=npc-generator&amp;[^"']*)["']>([^<]*)""")
     val allMatches = characterRegexWithName.findAll(html)
     console.log("Found ${allMatches.count()} characters")
     return allMatches.asFlow()
         .map {
-            val (preLinkText, url, linkText) = it.destructured
+            val (preLinkText, urlWithEscapeCharacters, linkText) = it.destructured
+            val url = urlWithEscapeCharacters.unescapeHTML()
+            if (url == null) {
+                parentLogger?.logError("Could not parse url in character ${it.value}")
+                return@map null
+            }
 
-            val characterDocument = WebsiteLoader().loadKassoonWebsite(url.unescapeHTML())
-            var character = KassoonCharacterParser(characterDocument).parseKassoonCharacter()
+            val logger = StepAwareLogger("Character $url", parentLogger)
+            try {
+                val characterDocument = WebsiteLoader().loadKassoonWebsite(url)
+                var character = KassoonCharacterParser(characterDocument, logger).parseKassoonCharacter()
 
-            character = tryFixName(linkText, preLinkText, character)
+                character = tryFixName(linkText, preLinkText, character)
 
-            character = tryFixOccupation(linkText, preLinkText, character)
-            character
+                character = tryFixOccupation(linkText, preLinkText, character)
+                character
+            } catch (e: AlreadyLoggedException) {
+                null
+            } catch (e: Exception) {
+                logger.logError("Unexpected Exception $e")
+                null
+            }
         }
+        .filterNotNull()
         .toList()
 }
 
@@ -133,7 +155,6 @@ private fun tryFixName(
     } else {
         linkText.trim().substringBefore(',')
     }
-    console.log("Replacing ${character.name} with $hopefullyName in the hopes it is correct")
 
     return character.copy(name = hopefullyName)
 }

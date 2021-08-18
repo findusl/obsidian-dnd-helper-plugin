@@ -4,6 +4,8 @@ import models.Town
 import parsers.KassoonTownParser
 import settings.Settings
 import settings.SettingsTab
+import util.AlreadyLoggedException
+import util.StepAwareLogger
 import util.WebsiteLoader
 
 @Suppress("EXPERIMENTAL_IS_NOT_ENABLED") // works just fine, stop complaining
@@ -11,8 +13,8 @@ import util.WebsiteLoader
 @JsExport
 @JsName("default")
 class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
-    // I doubt this has much effect in Javascript, but maybe it cancels something
-    private val coroutineScope = CoroutineScope(Dispatchers.Default)
+    // Can be used to cancel all ongoing operations.
+    private val coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
     private val websiteLoader = WebsiteLoader()
 
@@ -34,15 +36,12 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
 
         addSettingTab(SettingsTab(app, this))
 
-        addCommand(
-            CommandImpl(
-                id = "dnd-generate-town",
-                name = "Generate random town",
-                icon = "dice",
-                callback = this::generateRandomTown
-            )
-        )
+        addGenerateTownCommand()
 
+        addCleanCommand()
+    }
+
+    private fun addCleanCommand() {
         addCommand(
             CommandImpl(
                 id = "dnd-cleanup-last",
@@ -53,12 +52,30 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
         )
     }
 
+    private fun addGenerateTownCommand() {
+        addCommand(
+            CommandImpl(
+                id = "dnd-generate-town",
+                name = "Generate random town",
+                icon = "dice",
+                callback = this::generateRandomTown
+            )
+        )
+    }
+
     private fun generateRandomTown() = coroutineScope.launch {
         try {
-            val town = parseKassoonTownWebsite("/dnd/town-generator/10/518707/")
+            val url = "/dnd/town-generator/10/518707/"
+            val logger = StepAwareLogger("Character $url")
+            val town = parseKassoonTownWebsite(url, logger)
+            if (!this.isActive) throw CancellationException("Cancelled")
             lastCreatedFiles = NotePersistingService(app.vault, settings).persistTown(town)
+            if (logger.didLogError)
+                Notice("Not everything worked. Please send me the console log of obsidian.")
+        } catch (e: AlreadyLoggedException) {
+            Notice("Parsing error. Please send me the console log of obsidian.")
         } catch (e: Exception) {
-            Notice("There was an error trying to parse the town. Maybe the Kassoon website changed slightly, that breaks it.")
+            Notice("Something went badly wrong. Please send me the console log of obsidian.")
             e.printStackTrace()
         }
     }
@@ -89,10 +106,10 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
         saveData(JSON.stringify(settings)).await()
     }
 
-    private suspend fun parseKassoonTownWebsite(url: String): Town {
+    private suspend fun parseKassoonTownWebsite(url: String, logger: StepAwareLogger): Town {
         val document = websiteLoader.loadKassoonWebsite(url)
         println("Got document from $url")
-        val townParser = KassoonTownParser(document)
+        val townParser = KassoonTownParser(document, logger)
         return townParser.parseKassoonTown()
     }
 }

@@ -1,17 +1,21 @@
 package util
 
 import org.w3c.dom.parsing.DOMParser
-import parsers.handle
 
 /**
  * This cleans the given text by removing any repeating spaces and newlines and html symbols
  */
-fun String.cleanHtmlText(): String =
-    unescapeHTML().removeLineBreaks().replace(Regex("  +"), " ").trim()
+fun String.cleanHtmlText(): String {
+    val unescapedText = (unescapeHTML() ?: this)
+    return unescapedText.removeLineBreaks().replace(Regex("  +"), " ").trim()
+}
 
 fun String.removeLineBreaks(): String = replace("\n", "")
 
-fun String.unescapeHTML(): String {
+/**
+ * Not sure under what circumstances this could return null, but it should be rare.
+ */
+fun String.unescapeHTML(): String? {
     val doc = DOMParser().parseFromString(this, "text/html")
-    return doc.documentElement?.textContent.handle("Unescaped HTML of $this")
+    return doc.documentElement?.textContent
 }

@@ -5,6 +5,8 @@ import org.khronos.webgl.ArrayBuffer
 import org.w3c.dom.DocumentFragment
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.events.KeyboardEvent
+import org.w3c.dom.events.MouseEvent
 import kotlin.js.Promise
 
 open external class Component {
@@ -21,6 +23,7 @@ open external class Plugin(
     open fun addSettingTab(settingTab: PluginSettingTab)
     open fun loadData(): Promise<Any>
     open fun saveData(data: Any): Promise<Unit>
+    open fun addStatusBarItem(): HTMLElement
 }
 
 external interface PluginManifest {
@@ -178,4 +181,42 @@ open external class BaseComponent {
     open var disabled: Boolean
     open fun then(cb: (component: BaseComponent /* this */) -> Any): BaseComponent /* this */
     open fun setDisabled(disabled: Boolean): BaseComponent /* this */
+}
+
+external interface CloseableComponent {
+    fun close(): Any
+}
+
+open external class Modal(app: App) : CloseableComponent {
+    open var app: App
+    open var containerEl: HTMLElement
+    open var modalEl: HTMLElement
+    open var titleEl: HTMLElement
+    open var contentEl: HTMLElement
+    open var shouldRestoreSelection: Boolean
+    open fun open()
+    override fun close()
+    open fun onOpen()
+    open fun onClose()
+}
+
+external interface ISuggestOwner<T> {
+    fun renderSuggestion(value: T, el: HTMLElement)
+    fun selectSuggestion(value: T, evt: MouseEvent)
+    fun selectSuggestion(value: T, evt: KeyboardEvent)
+}
+
+open external class SuggestModal<T>(app: App) : Modal, ISuggestOwner<T> {
+    open var limit: Number
+    open var emptyStateText: String
+    open var inputEl: HTMLInputElement
+    open var resultContainerEl: HTMLElement
+    open fun setPlaceholder(placeholder: String)
+    open fun onNoSuggestion()
+    override fun selectSuggestion(value: T, evt: MouseEvent)
+    override fun selectSuggestion(value: T, evt: KeyboardEvent)
+    open fun getSuggestions(query: String): Array<T>
+    override fun renderSuggestion(value: T, el: HTMLElement)
+    open fun onChooseSuggestion(item: T, evt: MouseEvent)
+    open fun onChooseSuggestion(item: T, evt: KeyboardEvent)
 }

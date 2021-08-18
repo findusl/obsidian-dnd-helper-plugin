@@ -5,8 +5,9 @@ import util.camelCaseToCapitalizedSentenceCase
 import util.cleanHtmlText
 import util.removeLineBreaks
 import org.w3c.dom.Element
+import util.StepAwareLogger
 
-class KassoonServicesParser {
+class KassoonServicesParser(private val townLogger: StepAwareLogger) {
     private var serviceNames = mutableListOf<String>()
 
     fun extractServiceNames(serviceIndexParagraph: Element) {
@@ -16,22 +17,30 @@ class KassoonServicesParser {
             .map {
                 it.groupValues[1]
             }.toCollection(serviceNames)
+        if (serviceNames.isEmpty()) {
+            townLogger.logError("No service names were found")
+        }
         console.log("Extracted shopNames $serviceNames")
     }
 
     fun extractServicesFromHTML(html: String): List<Service> {
-        if (serviceNames.isEmpty())
-            throw UninitializedPropertyAccessException("The shop names have not yet been parsed")
+        if (serviceNames.isEmpty()) {
+            townLogger.logError("Shop names were not yet parsed")
+            return listOf()
+        }
         // consider starting to match from index of <h2>Shops</h2>. then maybe continue to match from the previous match,
         // as the index should have been in order.
 
         val shops = mutableListOf<Service>()
         for (serviceId in serviceNames) {
+            val serviceLogger = StepAwareLogger("serviceId", townLogger)
             var service = tryMatchShop(serviceId, html)
             if (service == null) {
                 service = tryMatchHousing(serviceId, html)
-                if (service == null)
+                if (service == null) {
+                    serviceLogger.logError("Could not match service.")
                     continue
+                }
             }
 
             shops.add(service)
@@ -42,11 +51,7 @@ class KassoonServicesParser {
 
 private fun tryMatchShop(shopId: String, contentHtml: String): Service? {
     val shopRegex = shopRegex(shopId)
-    val match = shopRegex.find(contentHtml)
-    if (match == null) {
-        console.log("Could not match shop $shopId. Using regex:\n${shopRegex.pattern}")
-        return null
-    }
+    val match = shopRegex.find(contentHtml) ?: return null
     val (type, name, owner, location, description, mapLink, specialsList, patronsList) = match.destructured
     val specialMatches = liItemRegex.findAll(specialsList)
     val specials = specialMatches.map { it.groupValues[1].cleanHtmlText() }.toList()
@@ -91,14 +96,10 @@ private fun shopRegex(shopId: String): Regex = Regex("""
 
 private fun tryMatchHousing(housingId: String, contentHtml: String): Service? {
     val housingRegex = housingRegex(housingId)
-    val match = housingRegex.find(contentHtml)
-    if (match == null) {
-        console.log("Could not match housing $housingId. Using regex:\n${housingRegex.pattern}")
-        return null
-    }
+    val match = housingRegex.find(contentHtml) ?: return null
     val (name, owner, mapLink, description) = match.destructured
     val completeMapLink = mapLink.completeMapLink()
-    val type = housingId.camelCaseToCapitalizedSentenceCase().removePrefix("models.Town ")
+    val type = housingId.camelCaseToCapitalizedSentenceCase().removePrefix("Town ")
 
     console.log("Extracted housing $name")
     return Service(

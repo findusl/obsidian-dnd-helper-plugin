@@ -12,6 +12,8 @@ class SettingsTab(app: App, private val plugin: DndPlugin) : PluginSettingTab(ap
         js("container.empty();")
         js("container.createEl('h2', { text: 'Dnd Generator Plugin settings.' });")
 
+		// look at this guys code to make this better:
+		// https://github.com/mgmeyers/obsidian-kanban/blob/93014c2512507fde9eafd241e8d4368a8dfdf853/src/Settings.ts#L101
 		Setting(container)
 			.setName("Path for town notes")
 			.setDesc("Under what path do you want to save your towns? Each town will have a separate folder under that path.")
