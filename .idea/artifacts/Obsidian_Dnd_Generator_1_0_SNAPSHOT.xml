@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Obsidian-Dnd-Generator-1.0-SNAPSHOT">
-    <output-path>C:/Users/findu/Development/Obsidian-Dnd-Generator/build/libs</output-path>
-    <root id="archive" name="Obsidian-Dnd-Generator-1.0-SNAPSHOT.jar">
-      <element id="module-output" name="Obsidian-Dnd-Generator.main" />
-    </root>
-  </artifact>
-</component>
