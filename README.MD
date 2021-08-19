@@ -11,6 +11,9 @@ This should print a few lines, one of them saying `PORT: 8010`. If the port is a
 
 ### Running the plugin
 
-In the build.gradle.kts file is a variable 'pluginPath'. That one needs to be modified to point at plugin folder in your
-vault. Then run `gradle copyToObsidianVault` and the plugin will be built and copied to your vault. Then activate it in
-obsidian under community plugins and use.
+Create a `local.properties` file and add the key `obsidianPluginFolderPath` with the path to the plugin folder in your 
+obsidian vault. For example if my vault is `C:/Users/someone/my_vault` then add the following to the `local.properties` 
+file: `C:/Users/someone/my_vault/.obsidian/plugins`
+
+Then run `gradle copyToObsidianVault` and the plugin will be built and copied to your vault. Any missing folders on the 
+path will be created. Then open obsidian and in the settings under community plugins activate the plugin.

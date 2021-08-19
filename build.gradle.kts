@@ -1,3 +1,4 @@
+import java.util.Properties
 
 plugins {
     kotlin("js") version "1.5.20"
@@ -34,15 +35,16 @@ kotlin {
     }
 }
 
-val pluginPath = "/Users/slehrbaum/OneDrive/My_DND5e_Campaign/.obsidian/plugins/dnd-generator"
-val pluginFolder = file(pluginPath)
+val properties = Properties().apply { load(project.rootProject.file("local.properties").inputStream()) }
+val obsidianPluginFolderPath = properties.getProperty("obsidianPluginFolderPath")
+val obsidianPluginFolder = File(obsidianPluginFolderPath, "dnd-generator")
 
 val copyPluginTask by tasks.register<Copy>("copyToObsidianVault") {
     from(
         layout.buildDirectory.file("distributions/main.js"),
         layout.buildDirectory.file("distributions/main.js.map")
     ) // TODO add the manifest file
-    into(pluginFolder)
+    into(obsidianPluginFolder)
     dependsOn("browserDistribution")
     group = "obsidian"
 }
