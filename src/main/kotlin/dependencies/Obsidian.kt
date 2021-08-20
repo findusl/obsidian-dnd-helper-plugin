@@ -1,6 +1,8 @@
 @file:JsModule("obsidian")
 @file:JsNonModule
 
+package dependencies
+
 import org.khronos.webgl.ArrayBuffer
 import org.w3c.dom.DocumentFragment
 import org.w3c.dom.HTMLElement

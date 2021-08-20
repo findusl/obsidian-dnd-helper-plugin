@@ -1,6 +1,6 @@
 package util
 
-import Command
+import dependencies.Command
 
 data class CommandImpl (
     override var id: String,

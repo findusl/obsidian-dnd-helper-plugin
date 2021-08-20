@@ -1,3 +1,5 @@
+import dependencies.*
+import kotlinx.browser.window
 import util.CommandImpl
 import kotlinx.coroutines.*
 import models.Town
@@ -39,6 +41,8 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
         addGenerateTownCommand()
 
         addCleanCommand()
+
+        addTestStuffCommand()
     }
 
     private fun addCleanCommand() {
@@ -61,6 +65,24 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
                 callback = this::generateRandomTown
             )
         )
+    }
+
+    private fun addTestStuffCommand() {
+        addCommand(
+            CommandImpl(
+                id = "dnd-generate-test",
+                name = "Test some command",
+                icon = "dice",
+                callback = this::testStuff
+            )
+        )
+    }
+
+    private fun testStuff() {
+
+        val userUrl = window.prompt("What website would you like me to try and import? " +
+                "(Currently we only support 'kassoon.com/dnd/town-generator' URLs)")
+        console.log("User gave me $userUrl")
     }
 
     private fun generateRandomTown() = coroutineScope.launch {

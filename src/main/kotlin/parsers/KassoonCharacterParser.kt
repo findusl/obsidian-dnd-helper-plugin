@@ -1,7 +1,7 @@
 package parsers
 
 import models.Character
-import Notice
+import dependencies.Notice
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map

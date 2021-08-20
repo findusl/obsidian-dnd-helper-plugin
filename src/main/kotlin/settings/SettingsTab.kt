@@ -1,9 +1,9 @@
 package settings
 
-import App
+import dependencies.App
 import DndPlugin
-import PluginSettingTab
-import Setting
+import dependencies.PluginSettingTab
+import dependencies.Setting
 
 class SettingsTab(app: App, private val plugin: DndPlugin) : PluginSettingTab(app, plugin) {
     override fun display() {

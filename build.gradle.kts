@@ -1,7 +1,7 @@
 import java.util.Properties
 
 plugins {
-    kotlin("js") version "1.5.20"
+    kotlin("js") version "1.5.21"
 }
 
 group = "de.lehrbaum"
@@ -14,8 +14,6 @@ repositories {
 dependencies {
     implementation(npm("obsidian", "0.12.5", false))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.1")
-
-    testImplementation(kotlin("test"))
 }
 
 kotlin {
