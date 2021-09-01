@@ -32,7 +32,7 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
             loadSettings()
         }
 
-        console.log("Loading D&D Generator plugin!")
+        console.log("Loading D&D Helper Plugin!")
 
         addSettingTab(SettingsTab(app, this))
 
@@ -56,7 +56,7 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
         addCommand(
             CommandImpl(
                 id = "dnd-generate-town",
-                name = "Generate random town",
+                name = "Import random town",
                 icon = "dice",
                 callback = this::generateRandomTown
             )

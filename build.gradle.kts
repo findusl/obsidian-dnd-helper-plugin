@@ -37,12 +37,13 @@ kotlin {
 
 val properties = Properties().apply { load(project.rootProject.file("local.properties").inputStream()) }
 val obsidianPluginFolderPath = properties.getProperty("obsidianPluginFolderPath")
-val obsidianPluginFolder = File(obsidianPluginFolderPath, "dnd-generator")
+val obsidianPluginFolder = File(obsidianPluginFolderPath, "dnd-helper")
 
 val copyPluginTask by tasks.register<Copy>("copyToObsidianVault") {
     from(
         layout.buildDirectory.file("distributions/main.js"),
-        layout.buildDirectory.file("distributions/main.js.map")
+        layout.buildDirectory.file("distributions/main.js.map"),
+        layout.buildDirectory.file("distributions/manifest.json")
     ) // TODO add the manifest file
     into(obsidianPluginFolder)
     dependsOn("browserDistribution")

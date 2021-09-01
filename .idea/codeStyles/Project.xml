@@ -1,15 +1,18 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
-    <DB2CodeStyleSettings version="5">
+    <DB2CodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </DB2CodeStyleSettings>
-    <DerbyCodeStyleSettings version="5">
+    <DerbyCodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </DerbyCodeStyleSettings>
-    <H2CodeStyleSettings version="5">
+    <H2CodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </H2CodeStyleSettings>
-    <HSQLCodeStyleSettings version="5">
+    <H2CodeStyleSettings version="6">
+      <option name="USE_GENERIC_STYLE" value="true" />
+    </H2CodeStyleSettings>
+    <HSQLCodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </HSQLCodeStyleSettings>
     <JavaCodeStyleSettings>
@@ -19,28 +22,28 @@
     <JetCodeStyleSettings>
       <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
     </JetCodeStyleSettings>
-    <MSSQLCodeStyleSettings version="5">
+    <MSSQLCodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </MSSQLCodeStyleSettings>
-    <MySQLCodeStyleSettings version="5">
+    <MySQLCodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </MySQLCodeStyleSettings>
-    <OracleCodeStyleSettings version="5">
+    <OracleCodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </OracleCodeStyleSettings>
-    <PostgresCodeStyleSettings version="5">
+    <PostgresCodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </PostgresCodeStyleSettings>
-    <SQLiteCodeStyleSettings version="5">
+    <SQLiteCodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </SQLiteCodeStyleSettings>
     <ScalaCodeStyleSettings>
       <option name="MULTILINE_STRING_CLOSING_QUOTES_ON_NEW_LINE" value="true" />
     </ScalaCodeStyleSettings>
-    <SqlCodeStyleSettings version="5">
+    <SqlCodeStyleSettings version="6">
       <option name="KEYWORD_CASE" value="2" />
     </SqlCodeStyleSettings>
-    <SybaseCodeStyleSettings version="5">
+    <SybaseCodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </SybaseCodeStyleSettings>
     <codeStyleSettings language="kotlin">

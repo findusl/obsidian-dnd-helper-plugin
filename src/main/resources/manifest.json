@@ -1,0 +1,10 @@
+{
+	"id": "dnd-helper",
+	"name": "Dnd 5e Helper Plugin",
+	"version": "0.0.1",
+	"minAppVersion": "0.9.12",
+	"description": "A helper Plugin for D&D 5e plugin using https://kassoon.com. Can generate Towns and NPCs.",
+	"author": "findus_l",
+	"authorUrl": "https://github.com/findusl",
+	"isDesktopOnly": false
+}

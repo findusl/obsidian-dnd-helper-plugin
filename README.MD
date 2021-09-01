@@ -13,7 +13,7 @@ a local CORS proxy to access the generator on https://kassoon.com. Run the follo
 
 Create a `local.properties` file and add the key `obsidianPluginFolderPath` with the path to the plugin folder in your
 obsidian vault. For example if my vault is `C:/Users/someone/my_vault` then add the following to the `local.properties`
-file: `C:/Users/someone/my_vault/.obsidian/plugins`
+file: `obsidianPluginFolderPath=C:/Users/someone/my_vault/.obsidian/plugins`
 
 Then run `gradle copyToObsidianVault` and the plugin will be built and copied to your vault. Any missing folders on the
 path will be created. Then open obsidian and in the settings under community plugins activate the plugin.
