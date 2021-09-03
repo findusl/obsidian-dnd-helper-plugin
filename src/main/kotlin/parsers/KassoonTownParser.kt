@@ -56,7 +56,7 @@ class KassoonTownParser(private val document: Document, private val logger: Step
     }
 
     private fun Sequence<Element>.consumeStats() = consumeOne { node ->
-        val statsRegex = Regex("""Population: ([^,]*), Size: (.*)[\s\S]*?Demographics: (.*)[\s\S]*?Wealth: ([^.]*)""")
+        val statsRegex = Regex("""Population: (.*?), Size: (.*)[\s\S]*?Demographics: (.*)[\s\S]*?Wealth: ([^.]*)""")
         val textContent = logger.logIfNull(node.textContent, "Stats") ?: return@consumeOne
         val matchResult = statsRegex.find(textContent.substring(1))
         if (matchResult == null) {
@@ -74,12 +74,12 @@ class KassoonTownParser(private val document: Document, private val logger: Step
     private fun Sequence<Element>.consumeDescription() = consumeOne { node ->
         console.log("Consuming Town description")
         val description = node.textContent?.cleanHtmlText()
-        townBuilder.description = logger.logIfNullAndFallback(description, "Description textContent", "")
+        townBuilder.description = logger.logIfNullAndDefaultFallback(description, "Description textContent")
     }
 
     private fun Sequence<Element>.consumeDefenses() = consumeOne { node ->
         console.log("Consuming Town defense")
         val defenses = node.textContent?.cleanHtmlText()?.removePrefix("Defenses: ")
-        townBuilder.defenses = logger.logIfNullAndFallback(defenses, "Defenses textContent", "")
+        townBuilder.defenses = logger.logIfNullAndDefaultFallback(defenses, "Defenses textContent")
     }
 }

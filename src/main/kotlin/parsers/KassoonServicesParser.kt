@@ -33,12 +33,11 @@ class KassoonServicesParser(private val townLogger: StepAwareLogger) {
 
         val shops = mutableListOf<Service>()
         for (serviceId in serviceNames) {
-            val serviceLogger = StepAwareLogger("serviceId", townLogger)
             var service = tryMatchShop(serviceId, html)
             if (service == null) {
                 service = tryMatchHousing(serviceId, html)
                 if (service == null) {
-                    serviceLogger.logError("Could not match service.")
+                    StepAwareLogger("serviceId", townLogger).logError("Could not match service.")
                     continue
                 }
             }

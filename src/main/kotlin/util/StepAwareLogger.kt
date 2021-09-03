@@ -1,5 +1,7 @@
 package util
 
+import SERIALIZATION_ERROR_PLACEHOLDER
+
 open class StepAwareLogger(
     private val stepName: String = "Root step",
     private val parentLogger: StepAwareLogger? = null
@@ -35,6 +37,10 @@ open class StepAwareLogger(
             return default
         }
         return value
+    }
+
+    fun logIfNullAndDefaultFallback(value: String?, variableName: String): String {
+        return logIfNullAndFallback(value, variableName, SERIALIZATION_ERROR_PLACEHOLDER)
     }
 
     private fun rememberErrorWasLogged() {

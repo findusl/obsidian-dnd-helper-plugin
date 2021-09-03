@@ -36,6 +36,7 @@ class NotePersistingService(
             persistService(service, townFolderPath, serviceMarkdownSerializer)
         }
         town.characters.forEach { character ->
+            // TODO handle duplicate files. Maybe town name in brackets or regenerate in advance
             persistCharacter(character)
         }
         return recentlyCreated

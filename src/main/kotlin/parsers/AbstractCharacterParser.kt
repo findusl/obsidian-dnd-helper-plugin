@@ -1,23 +1,24 @@
 package parsers
 
+import SERIALIZATION_ERROR_PLACEHOLDER
 import models.Character
 
 abstract class AbstractCharacterParser {
 
     protected class CharacterBuilder {
-        lateinit var name: String
-        lateinit var race: String
-        lateinit var gender: String
-        lateinit var url: String
-        lateinit var occupation: String
-        lateinit var voice: String
+        var name: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var race: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var gender: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var url: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var occupation: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var voice: String = SERIALIZATION_ERROR_PLACEHOLDER
         var ideals: String? = null
         var flaws: String? = null
         var bonds: String? = null
-        lateinit var description: String
-        lateinit var personality: String
-        lateinit var history: String
-        lateinit var motivation: String
+        var description: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var personality: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var history: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var motivation: String = SERIALIZATION_ERROR_PLACEHOLDER
 
 
         fun build(): Character {

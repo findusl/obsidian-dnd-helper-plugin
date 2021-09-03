@@ -53,43 +53,37 @@ class KassoonCharacterParser(private val document: Document, private val logger:
     }
 
     private fun Sequence<Element>.consumeCharacterDescription() = consumeOne { node ->
-        console.log("Consuming char description ${node.id}")
         characterBuilder.description = node.textContent
-            .nullStringFallback("description textContent")
+            .defaultStringFallback("description textContent")
             .removePrefix("Description:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterPersonality() = consumeOne { node ->
-        console.log("Consuming char personality ${node.id}")
         characterBuilder.personality = node.textContent
-            .nullStringFallback("personality textContent")
+            .defaultStringFallback("personality textContent")
             .removePrefix("Personality:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterHistory() = consumeOne { node ->
-        console.log("Consuming char history ${node.id}")
         characterBuilder.history = node.textContent
-            .nullStringFallback("history textContent")
+            .defaultStringFallback("history textContent")
             .removePrefix("History:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterMotivation() = consumeOne { node ->
-        console.log("Consuming char motivation ${node.id}")
         characterBuilder.motivation = node.textContent
-            .nullStringFallback("motivation textContent")
+            .defaultStringFallback("motivation textContent")
             .removePrefix("Motivation:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterVoice() = consumeOne { node ->
-        console.log("Consuming char voice ${node.id}")
         characterBuilder.voice = node.textContent
-            .nullStringFallback("motivation textContent")
+            .defaultStringFallback("motivation textContent")
             .removePrefix("Voice:").trim().cleanHtmlText()
     }
 
     private fun Sequence<Element>.consumeCharacterMiscItems() = consumeOne { node ->
-        console.log("Consuming char misc (occ) ${node.id}")
-        val text = node.textContent.nullStringFallback("Misc items textContent")
+        val text = node.textContent.defaultStringFallback("Misc items textContent")
         val idealsRegex = Regex("""Ideals: ([^.]*)""")
         val ideals = idealsRegex.find(text)?.groupValues?.get(1)
         val flawsRegex = Regex("""Flaws: ([^.]*)""")
@@ -101,11 +95,11 @@ class KassoonCharacterParser(private val document: Document, private val logger:
         characterBuilder.ideals = ideals?.trim()
         characterBuilder.flaws = flaws?.trim()
         characterBuilder.bonds = bonds?.trim()
-        characterBuilder.occupation = occupation?.trim().nullStringFallback("occupation")
+        characterBuilder.occupation = occupation?.trim().defaultStringFallback("occupation")
     }
 
-    private fun String?.nullStringFallback(variableName: String): String {
-        return logger.logIfNullAndFallback(this, variableName, "")
+    private fun String?.defaultStringFallback(variableName: String): String {
+        return logger.logIfNullAndDefaultFallback(this, variableName)
     }
 }
 
@@ -125,7 +119,7 @@ suspend fun detectAndParseKassoonCharactersFromHTML(html: String, parentLogger: 
 
             val logger = StepAwareLogger("Character $url", parentLogger)
             try {
-                val characterDocument = WebsiteLoader().loadKassoonWebsite(url)
+                val characterDocument = WebsiteLoader().loadRelativeWebsite(url)
                 var character = KassoonCharacterParser(characterDocument, logger).parseKassoonCharacter()
 
                 character = tryFixName(linkText, preLinkText, character)

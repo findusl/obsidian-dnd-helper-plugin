@@ -1,18 +1,20 @@
 package parsers
 
+import SERIALIZATION_ERROR_PLACEHOLDER
 import models.Service
 
+@Suppress("MemberVisibilityCanBePrivate", "unused") // unused so far
 abstract class AbstractServiceParser {
 
     protected class ServiceBuilder {
-        lateinit var name: String
-        lateinit var type: String
-        lateinit var owner: String
-        lateinit var locationDescription: String
-        lateinit var description: String
-        lateinit var mapLink: String
-        lateinit var specials: List<String>
-        lateinit var patrons: List<String>
+        var name: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var type: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var owner: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var locationDescription: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var description: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var mapLink: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var specials: List<String> = listOf()
+        var patrons: List<String> = listOf()
 
         fun build(): Service {
             // throws exceptions if not all values were set

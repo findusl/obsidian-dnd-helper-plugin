@@ -1,11 +1,11 @@
 import dependencies.*
-import kotlinx.browser.window
 import util.CommandImpl
 import kotlinx.coroutines.*
 import models.Town
 import parsers.KassoonTownParser
 import settings.Settings
 import settings.SettingsTab
+import ui.InputModal
 import util.AlreadyLoggedException
 import util.StepAwareLogger
 import util.WebsiteLoader
@@ -33,8 +33,6 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
         coroutineScope.launch {
             loadSettings()
         }
-
-        console.log("Loading D&D Helper Plugin!")
 
         addSettingTab(SettingsTab(app, this))
 
@@ -78,16 +76,13 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
         )
     }
 
-    private fun testStuff() {
-
-        val userUrl = window.prompt("What website would you like me to try and import? " +
-                "(Currently we only support 'kassoon.com/dnd/town-generator' URLs)")
-        console.log("User gave me $userUrl")
+    private fun testStuff() = coroutineScope.launch {
+        console.log("Nothing testing right now")
     }
 
     private fun generateRandomTown() = coroutineScope.launch {
         try {
-            val url = "/dnd/town-generator/10/518707/"
+            val url = InputModal(app).openForResult().trim()
             val logger = StepAwareLogger("Character $url")
             val town = parseKassoonTownWebsite(url, logger)
             if (!this.isActive) throw CancellationException("Cancelled")
@@ -119,7 +114,7 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
 
     private suspend fun loadSettings() {
         val loaded = loadData().await()
-        console.log("Loaded $loaded")
+        console.log("Loaded settings: $loaded")
         val loadedString = loaded as? String ?: return
         this.settings = JSON.parse(loadedString)
     }
@@ -129,7 +124,7 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
     }
 
     private suspend fun parseKassoonTownWebsite(url: String, logger: StepAwareLogger): Town {
-        val document = websiteLoader.loadKassoonWebsite(url)
+        val document = websiteLoader.loadWebsite(url)
         println("Got document from $url")
         val townParser = KassoonTownParser(document, logger)
         return townParser.parseKassoonTown()

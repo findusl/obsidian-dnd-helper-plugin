@@ -1,16 +1,16 @@
 package settings
 
-import dependencies.App
 import DndPlugin
-import dependencies.PluginSettingTab
-import dependencies.Setting
+import dependencies.*
+import kotlinx.html.dom.append
+import kotlinx.html.js.h2
 
 class SettingsTab(app: App, private val plugin: DndPlugin) : PluginSettingTab(app, plugin) {
     override fun display() {
         val container = containerEl
-		// TODO Not sure how to define these functions on container
-        js("container.empty();")
-        js("container.createEl('h2', { text: 'Dnd Helper Plugin settings.' });")
+		// TODO Not sure how to define this function on container, it is provided by obsidian
+		js("container.empty();")
+		container.append.h2 { text("Dnd Helper Plugin settings") }
 
 		// look at this guys code to make this better:
 		// https://github.com/mgmeyers/obsidian-kanban/blob/93014c2512507fde9eafd241e8d4368a8dfdf853/src/Settings.ts#L101
