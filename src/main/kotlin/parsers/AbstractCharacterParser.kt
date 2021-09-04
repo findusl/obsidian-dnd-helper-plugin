@@ -1,7 +1,7 @@
 package parsers
 
-import SERIALIZATION_ERROR_PLACEHOLDER
 import models.Character
+import util.SERIALIZATION_ERROR_PLACEHOLDER
 
 abstract class AbstractCharacterParser {
 

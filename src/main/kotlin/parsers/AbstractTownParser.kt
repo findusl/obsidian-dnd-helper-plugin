@@ -1,6 +1,6 @@
 package parsers
 
-import SERIALIZATION_ERROR_PLACEHOLDER
+import util.SERIALIZATION_ERROR_PLACEHOLDER
 import models.Character
 import models.Service
 import models.Town

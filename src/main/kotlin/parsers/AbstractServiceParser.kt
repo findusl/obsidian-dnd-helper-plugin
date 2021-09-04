@@ -1,6 +1,6 @@
 package parsers
 
-import SERIALIZATION_ERROR_PLACEHOLDER
+import util.SERIALIZATION_ERROR_PLACEHOLDER
 import models.Service
 
 @Suppress("MemberVisibilityCanBePrivate", "unused") // unused so far

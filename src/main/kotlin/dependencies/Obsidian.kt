@@ -38,6 +38,7 @@ open external class App {
 }
 
 open external class Vault : Events {
+    open var adapter: DataAdapter
     open var configDir: String
     open fun getName(): String
     open fun getAbstractFileByPath(path: String): TAbstractFile?
@@ -83,6 +84,23 @@ open external class Vault : Events {
     companion object {
         fun recurseChildren(root: TFolder, cb: (file: TAbstractFile) -> Any)
     }
+}
+
+external interface DataAdapter {
+    fun getName(): String
+    fun exists(normalizedPath: String, sensitive: Boolean = definedExternally): Promise<Boolean>
+    fun read(normalizedPath: String): Promise<String>
+    fun readBinary(normalizedPath: String): Promise<ArrayBuffer>
+    fun write(normalizedPath: String, data: String, options: DataWriteOptions = definedExternally): Promise<Unit>
+    fun writeBinary(normalizedPath: String, data: ArrayBuffer, options: DataWriteOptions = definedExternally): Promise<Unit>
+    fun getResourcePath(normalizedPath: String): String
+    fun mkdir(normalizedPath: String): Promise<Unit>
+    fun trashSystem(normalizedPath: String): Promise<Boolean>
+    fun trashLocal(normalizedPath: String): Promise<Unit>
+    fun rmdir(normalizedPath: String, recursive: Boolean): Promise<Unit>
+    fun remove(normalizedPath: String): Promise<Unit>
+    fun rename(normalizedPath: String, normalizedNewPath: String): Promise<Unit>
+    fun copy(normalizedPath: String, normalizedNewPath: String): Promise<Unit>
 }
 
 external interface DataWriteOptions {

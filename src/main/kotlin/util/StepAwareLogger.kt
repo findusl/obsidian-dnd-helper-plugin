@@ -1,6 +1,5 @@
 package util
 
-import SERIALIZATION_ERROR_PLACEHOLDER
 
 open class StepAwareLogger(
     private val stepName: String = "Root step",

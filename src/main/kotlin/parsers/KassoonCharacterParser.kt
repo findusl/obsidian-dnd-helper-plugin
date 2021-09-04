@@ -2,10 +2,7 @@ package parsers
 
 import models.Character
 import dependencies.Notice
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.flow.*
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.ParentNode
@@ -134,6 +131,8 @@ suspend fun detectAndParseKassoonCharactersFromHTML(html: String, parentLogger: 
             }
         }
         .filterNotNull()
+            // remove duplicate character and assume 
+        .removeDuplicates(parentLogger)
         .toList()
 }
 
@@ -169,4 +168,13 @@ private fun tryFixOccupation(
         }
     }
     return character1
+}
+
+private fun Flow<Character>.removeDuplicates(parentLogger: StepAwareLogger?) = distinctUntilChanged { old, new ->
+    if (old.name == new.name) {
+        parentLogger?.logError("Character ${new.name} existed double.")
+        true
+    } else {
+        false
+    }
 }

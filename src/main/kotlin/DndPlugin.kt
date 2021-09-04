@@ -1,14 +1,11 @@
 import dependencies.*
-import util.CommandImpl
 import kotlinx.coroutines.*
-import models.Town
+import parsers.KassoonCharacterParser
 import parsers.KassoonTownParser
 import settings.Settings
 import settings.SettingsTab
 import ui.InputModal
-import util.AlreadyLoggedException
-import util.StepAwareLogger
-import util.WebsiteLoader
+import util.*
 
 @Suppress("EXPERIMENTAL_IS_NOT_ENABLED") // works just fine, stop complaining
 @OptIn(ExperimentalJsExport::class)
@@ -57,10 +54,10 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
     private fun addGenerateTownCommand() {
         addCommand(
             CommandImpl(
-                id = "dnd-generate-town",
-                name = "Import random town",
+                id = "dnd-import-url",
+                name = "Import Dnd url",
                 icon = "dice",
-                callback = this::generateRandomTown
+                callback = this::importDndUrl
             )
         )
     }
@@ -77,16 +74,14 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
     }
 
     private fun testStuff() = coroutineScope.launch {
-        console.log("Nothing testing right now")
+        Notice("first")
+        Notice("second")
     }
 
-    private fun generateRandomTown() = coroutineScope.launch {
+    private fun importDndUrl() = coroutineScope.launch {
         try {
             val url = InputModal(app).openForResult().trim()
-            val logger = StepAwareLogger("Character $url")
-            val town = parseKassoonTownWebsite(url, logger)
-            if (!this.isActive) throw CancellationException("Cancelled")
-            lastCreatedFiles = NotePersistingService(app.vault, settings).persistTown(town)
+            val logger = identifyImportAndPersistUrl(url)
             if (logger.didLogError)
                 Notice("Not everything worked. Please send me the console log of obsidian.")
         } catch (e: AlreadyLoggedException) {
@@ -95,6 +90,38 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
             Notice("Something went badly wrong. Please send me the console log of obsidian.")
             e.printStackTrace()
         }
+    }
+
+    private suspend fun identifyImportAndPersistUrl(url: String): StepAwareLogger {
+        val logger: StepAwareLogger
+        if (url.contains("town-generator")) {
+            logger = importAndPersistTown(url)
+        } else if(url.contains("npc-generator")) {
+            logger = importAndPersistCharacter(url)
+        } else {
+            TODO("Handle other cases")
+        }
+        return logger
+    }
+
+    private suspend fun importAndPersistCharacter(url: String): StepAwareLogger {
+        val logger = StepAwareLogger("Character $url")
+        val document = websiteLoader.loadWebsite(url)
+        val characterParser = KassoonCharacterParser(document, logger)
+        val character = characterParser.parseKassoonCharacter()
+        coroutineScope.assertNotCancelled()
+        lastCreatedFiles = NotePersistingService(app.vault, settings).persistCharacter(character)
+        return logger
+    }
+
+    private suspend fun importAndPersistTown(url: String): StepAwareLogger {
+        val logger = StepAwareLogger("Town $url")
+        val document = websiteLoader.loadWebsite(url)
+        val townParser = KassoonTownParser(document, logger)
+        val town = townParser.parseKassoonTown()
+        coroutineScope.assertNotCancelled()
+        lastCreatedFiles = NotePersistingService(app.vault, settings).persistTown(town)
+        return logger
     }
 
     private fun cleanupLastGeneration() = coroutineScope.launch {
@@ -121,12 +148,5 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
 
     private suspend fun saveSettings() {
         saveData(JSON.stringify(settings)).await()
-    }
-
-    private suspend fun parseKassoonTownWebsite(url: String, logger: StepAwareLogger): Town {
-        val document = websiteLoader.loadWebsite(url)
-        println("Got document from $url")
-        val townParser = KassoonTownParser(document, logger)
-        return townParser.parseKassoonTown()
     }
 }

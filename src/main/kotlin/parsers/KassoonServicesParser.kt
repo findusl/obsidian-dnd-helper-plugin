@@ -44,7 +44,7 @@ class KassoonServicesParser(private val townLogger: StepAwareLogger) {
 
             shops.add(service)
         }
-        return shops
+        return shops.distinctBy { it.name }
     }
 }
 

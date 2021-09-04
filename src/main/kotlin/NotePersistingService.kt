@@ -43,17 +43,37 @@ class NotePersistingService(
     }
 
     private suspend fun persistService(service: Service, townFolderPath: String, serializer: ServiceMarkdownSerializer) {
-        val sanitizedServiceName = service.name.sanitizeFileName()
-        val serviceFilePath = "$townFolderPath/${sanitizedServiceName}.md"
-        val serviceFileContent = serializer.serialize(service)
-        vault.create(serviceFilePath, serviceFileContent).await().let { recentlyCreated.add(it) }
+        try {
+            val sanitizedServiceName = service.name.sanitizeFileName()
+            val serviceFilePath = "$townFolderPath/${sanitizedServiceName}.md"
+            val serviceFileContent = serializer.serialize(service)
+            vault.create(serviceFilePath, serviceFileContent).await().let { recentlyCreated.add(it) }
+        } catch (e: Exception) {
+            // TODO add logger
+            e.printStackTrace()
+        }
     }
 
-    private suspend fun persistCharacter(character: Character) {
-        val sanitizedCharacterName = character.name.sanitizeFileName()
-        val characterFilePath = "${settings.characterBasePath}/${sanitizedCharacterName}.md"
-        val characterFileContent = CharacterMarkdownSerializer.serialize(character)
-        vault.create(characterFilePath, characterFileContent).await().let { recentlyCreated.add(it) }
+    suspend fun persistCharacter(character: Character): List<TAbstractFile> {
+        try {
+            val sanitizedCharacterName = character.name.sanitizeFileName()
+            val characterFilePath = "${settings.characterBasePath}/${sanitizedCharacterName}.md"
+            if (vault.adapter.exists(characterFilePath).await()) {
+                console.log("File path already exists $characterFilePath")
+                Notice("Character with name ${character.name} cannot be created (file already exists)")
+            } else {
+                val characterFileContent = CharacterMarkdownSerializer.serialize(character)
+                vault.create(characterFilePath, characterFileContent).await().let { recentlyCreated.add(it) }
+            }
+        } catch (e: Exception) {
+            // TODO add logger
+            e.printStackTrace()
+        }
+        return recentlyCreated
+    }
+
+    private suspend fun findAndReplaceDuplicateNames(character: Character) {
+        TODO("To be implemented")
     }
 
 }
@@ -64,7 +84,7 @@ private fun String.sanitizeFileName(): String {
         // TODO this probably leads to problems with linking, handle somehow
         if (!legalCharacter) {
             console.log("Had to skip character in $this")
-            Notice("Illegal file name $this. Linking might not work.")
+            Notice("Illegal file name $this. Linking might not work.") // TODO need to replace with modal
         }
         legalCharacter
     }
