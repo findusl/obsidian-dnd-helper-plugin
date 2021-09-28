@@ -15,7 +15,8 @@ open class WebsiteLoader {
      * Pass full URL, the host is removed to call the CORS avoidance proxy.
      */
     internal suspend fun loadWebsite(fullUrl: String): Document {
-        val relativeUrl = URL(fullUrl).pathname // TODO handle paths with query parameters like this:
+        val relativeUrl = URL(fullUrl).pathname
+        // TODO handle paths with query parameters like this:
         // https://www.kassoon.com/?page=dnd&subpage=npc-generator&reqRace=8&useSeed=on&seed=61893
         return loadRelativeWebsite(relativeUrl)
     }

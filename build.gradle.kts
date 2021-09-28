@@ -42,8 +42,9 @@ val copyPluginTask by tasks.register<Copy>("copyToObsidianVault") {
     from(
         layout.buildDirectory.file("distributions/main.js"),
         layout.buildDirectory.file("distributions/main.js.map"),
-        layout.buildDirectory.file("distributions/manifest.json")
-    ) // TODO add the manifest file
+        layout.buildDirectory.file("distributions/manifest.json"),
+        layout.buildDirectory.file("distributions/style.css")
+    )
     into(obsidianPluginFolder)
     dependsOn("browserDistribution")
     group = "obsidian"

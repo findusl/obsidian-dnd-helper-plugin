@@ -41,8 +41,7 @@ class KassoonTownParser(private val document: Document, private val logger: Step
     }
 
     private fun Sequence<Element>.consumeTownHeader() = consumeOne { node ->
-        // TODO CHECK REGEX that lazy matching looks suspicious
-        val townHeaderRegex = Regex("""([^,]*), ([\w\s]*?) .*? href="([^"]*)">""")
+        val townHeaderRegex = Regex("""([^,]*), ([\w\s]*) .*? href="([^"]*)">""")
         val matchResult = townHeaderRegex.find(node.innerHTML)
         if (matchResult == null) {
             logger.logError("Could not match town header")

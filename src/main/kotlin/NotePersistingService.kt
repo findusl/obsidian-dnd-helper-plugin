@@ -1,4 +1,3 @@
-import dependencies.Notice
 import dependencies.TAbstractFile
 import dependencies.Vault
 import kotlinx.coroutines.await
@@ -9,6 +8,7 @@ import serializers.CharacterMarkdownSerializer
 import serializers.ServiceMarkdownSerializer
 import serializers.TownMarkdownSerializer
 import settings.Settings
+import util.StepAwareLogger
 
 // TODO handle file collisions
 class NotePersistingService(
@@ -21,8 +21,8 @@ class NotePersistingService(
     /**
      * Creates the files and returns a list of created files.
      */
-    suspend fun persistTown(town: Town): List<TAbstractFile> {
-        val sanitizedTownName = town.name.sanitizeFileName()
+    suspend fun persistTown(town: Town, logger: StepAwareLogger): List<TAbstractFile> {
+        val sanitizedTownName = town.name.sanitizeFileName(logger)
         val townFolderPath = "${settings.townBasePath}/${sanitizedTownName}"
         vault.createFolder(townFolderPath).await()
         vault.getAbstractFileByPath(townFolderPath)?.let { recentlyCreated.add(it) }
@@ -33,58 +33,59 @@ class NotePersistingService(
 
         val serviceMarkdownSerializer = ServiceMarkdownSerializer(town)
         town.services.forEach { service ->
-            persistService(service, townFolderPath, serviceMarkdownSerializer)
+            persistService(service, townFolderPath, serviceMarkdownSerializer, logger)
         }
         town.characters.forEach { character ->
             // TODO handle duplicate files. Maybe town name in brackets or regenerate in advance
-            persistCharacter(character)
+            persistCharacter(character, StepAwareLogger(character.name, logger))
         }
         return recentlyCreated
     }
 
-    private suspend fun persistService(service: Service, townFolderPath: String, serializer: ServiceMarkdownSerializer) {
+    private suspend fun persistService(
+        service: Service,
+        townFolderPath: String,
+        serializer: ServiceMarkdownSerializer,
+        parentLogger: StepAwareLogger
+    ) {
+        val logger = StepAwareLogger(service.name, parentLogger)
         try {
-            val sanitizedServiceName = service.name.sanitizeFileName()
+            val sanitizedServiceName = service.name.sanitizeFileName(logger)
             val serviceFilePath = "$townFolderPath/${sanitizedServiceName}.md"
             val serviceFileContent = serializer.serialize(service)
             vault.create(serviceFilePath, serviceFileContent).await().let { recentlyCreated.add(it) }
         } catch (e: Exception) {
-            // TODO add logger
-            e.printStackTrace()
+            logger.logAndShow("Unable to serialize service ${service.name}. Linking might be broken", e.message)
         }
     }
 
-    suspend fun persistCharacter(character: Character): List<TAbstractFile> {
+    suspend fun persistCharacter(character: Character, logger: StepAwareLogger): List<TAbstractFile> {
         try {
-            val sanitizedCharacterName = character.name.sanitizeFileName()
+            val sanitizedCharacterName = character.name.sanitizeFileName(logger)
             val characterFilePath = "${settings.characterBasePath}/${sanitizedCharacterName}.md"
             if (vault.adapter.exists(characterFilePath).await()) {
                 console.log("File path already exists $characterFilePath")
-                Notice("Character with name ${character.name} cannot be created (file already exists)")
+                logger.logAndShow("Character with name ${character.name} cannot be created (file already exists)")
             } else {
                 val characterFileContent = CharacterMarkdownSerializer.serialize(character)
                 vault.create(characterFilePath, characterFileContent).await().let { recentlyCreated.add(it) }
             }
         } catch (e: Exception) {
-            // TODO add logger
-            e.printStackTrace()
+            logger.logAndShow("Unable to serialize character ${character.name}. Linking between files might be broken", e.message)
         }
         return recentlyCreated
     }
 
-    private suspend fun findAndReplaceDuplicateNames(character: Character) {
+    /* private suspend fun findAndReplaceDuplicateNames(character: Character) {
         TODO("To be implemented")
-    }
-
+    }*/
 }
 
-private fun String.sanitizeFileName(): String {
+private fun String.sanitizeFileName(logger: StepAwareLogger): String {
     return filter { c ->
         val legalCharacter = !ILLEGAL_FILE_NAME_CHARACTERS.contains(c)
-        // TODO this probably leads to problems with linking, handle somehow
         if (!legalCharacter) {
-            console.log("Had to skip character in $this")
-            Notice("Illegal file name $this. Linking might not work.") // TODO need to replace with modal
+            logger.logAndShow("Illegal file name $this. Linking might not work.", "Skipped $c")
         }
         legalCharacter
     }

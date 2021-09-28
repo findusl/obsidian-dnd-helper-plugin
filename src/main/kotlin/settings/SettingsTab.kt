@@ -8,7 +8,7 @@ import kotlinx.html.js.h2
 class SettingsTab(app: App, private val plugin: DndPlugin) : PluginSettingTab(app, plugin) {
     override fun display() {
         val container = containerEl
-		// TODO Not sure how to define this function on container, it is provided by obsidian
+		// Not sure how to define this function on container, it is provided by obsidian
 		js("container.empty();")
 		container.append.h2 { text("Dnd Helper Plugin settings") }
 

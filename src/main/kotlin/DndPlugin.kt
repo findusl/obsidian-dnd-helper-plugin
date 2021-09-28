@@ -79,6 +79,7 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
     }
 
     private fun importDndUrl() = coroutineScope.launch {
+        // TODO move to seperate class
         try {
             val url = InputModal(app).openForResult().trim()
             val logger = identifyImportAndPersistUrl(url)
@@ -99,28 +100,41 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
         } else if(url.contains("npc-generator")) {
             logger = importAndPersistCharacter(url)
         } else {
-            TODO("Handle other cases")
+            logger = StepAwareLogger("Character $url", app = app)
+            logger.logAndShow("Unknown URL. Currently the tool only supports the kassoon Town generator or npc-generator.")
         }
         return logger
     }
 
+    private val userCorsMessage = "Couldn't reach the website. The Tool requires a CORS Proxy running on 8010 as described in the README."
+
     private suspend fun importAndPersistCharacter(url: String): StepAwareLogger {
-        val logger = StepAwareLogger("Character $url")
-        val document = websiteLoader.loadWebsite(url)
+        val logger = StepAwareLogger("Character $url", app = app)
+        val document = try {
+            websiteLoader.loadWebsite(url)
+        } catch (e: Throwable) {
+            logger.logAndShow(userCorsMessage, e.message)
+            return logger
+        }
         val characterParser = KassoonCharacterParser(document, logger)
         val character = characterParser.parseKassoonCharacter()
         coroutineScope.assertNotCancelled()
-        lastCreatedFiles = NotePersistingService(app.vault, settings).persistCharacter(character)
+        lastCreatedFiles = NotePersistingService(app.vault, settings).persistCharacter(character, logger)
         return logger
     }
 
     private suspend fun importAndPersistTown(url: String): StepAwareLogger {
-        val logger = StepAwareLogger("Town $url")
-        val document = websiteLoader.loadWebsite(url)
+        val logger = StepAwareLogger("Town $url", app = app)
+        val document = try {
+            websiteLoader.loadWebsite(url)
+        } catch (e: Throwable) {
+            logger.logAndShow(userCorsMessage, e.message)
+            return logger
+        }
         val townParser = KassoonTownParser(document, logger)
         val town = townParser.parseKassoonTown()
         coroutineScope.assertNotCancelled()
-        lastCreatedFiles = NotePersistingService(app.vault, settings).persistTown(town)
+        lastCreatedFiles = NotePersistingService(app.vault, settings).persistTown(town, logger)
         return logger
     }
 

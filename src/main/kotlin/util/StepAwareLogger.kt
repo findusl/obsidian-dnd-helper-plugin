@@ -1,9 +1,13 @@
 package util
 
+import dependencies.App
+import ui.NoteModal
+
 
 open class StepAwareLogger(
     private val stepName: String = "Root step",
-    private val parentLogger: StepAwareLogger? = null
+    private val parentLogger: StepAwareLogger? = null,
+    private val app: App? = parentLogger?.app
 ) {
     open var didLogError = false
         protected set
@@ -40,6 +44,14 @@ open class StepAwareLogger(
 
     fun logIfNullAndDefaultFallback(value: String?, variableName: String): String {
         return logIfNullAndFallback(value, variableName, SERIALIZATION_ERROR_PLACEHOLDER)
+    }
+
+    /**
+     * This error message is shown to the user and logged. The additionalInformation part is added to the log.
+     */
+    fun logAndShow(userMessage: String, additionalInformation: String? = null) {
+        logError("$userMessage\n$additionalInformation")
+        app?.let { NoteModal(it, "Error", userMessage).open() }
     }
 
     private fun rememberErrorWasLogged() {
