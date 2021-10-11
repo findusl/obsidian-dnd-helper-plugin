@@ -15,10 +15,12 @@ open class WebsiteLoader {
      * Pass full URL, the host is removed to call the CORS avoidance proxy.
      */
     internal suspend fun loadWebsite(fullUrl: String): Document {
-        val relativeUrl = URL(fullUrl).pathname
-        // TODO handle paths with query parameters like this:
-        // https://www.kassoon.com/?page=dnd&subpage=npc-generator&reqRace=8&useSeed=on&seed=61893
-        return loadRelativeWebsite(relativeUrl)
+        val proxiedUrl = URL(fullUrl)
+        console.log("Url before proxy $proxiedUrl")
+        proxiedUrl.protocol = "http"
+        proxiedUrl.host = "localhost:8010"
+        proxiedUrl.pathname = "/proxy" + proxiedUrl.pathname
+        return loadWebsiteProxied(proxiedUrl.toString())
     }
 
     /**
@@ -27,8 +29,12 @@ open class WebsiteLoader {
      */
     internal suspend fun loadRelativeWebsite(relativeUrl: String): Document {
         val proxiedURL = prefixLocalCorsAvoidance + relativeUrl
-        console.log("Loading website $proxiedURL")
-        val response = window.fetch(Request(proxiedURL)).await()
+        return loadWebsiteProxied(proxiedURL)
+    }
+
+    private suspend fun loadWebsiteProxied(proxiedUrl: String): Document {
+        console.log("Loading website $proxiedUrl")
+        val response = window.fetch(Request(proxiedUrl)).await()
         val htmlText = response.text().await()
         return DOMParser().parseFromString(htmlText, "text/html")
     }
