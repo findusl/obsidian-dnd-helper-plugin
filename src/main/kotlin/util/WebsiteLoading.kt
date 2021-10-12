@@ -2,6 +2,7 @@ package util
 
 import kotlinx.browser.window
 import kotlinx.coroutines.await
+import kotlinx.coroutines.coroutineScope
 import org.w3c.dom.Document
 import org.w3c.dom.parsing.DOMParser
 import org.w3c.dom.url.URL
