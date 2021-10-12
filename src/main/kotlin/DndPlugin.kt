@@ -12,8 +12,15 @@ import util.*
 @JsExport
 @JsName("default")
 class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
+    // use https://kt.academy/article/cc-exception-handling
+    private val  coroutineExceptionHandler = CoroutineExceptionHandler {
+            _, exception ->
+        Notice("Something went badly wrong. Please send me the console log of obsidian.")
+        exception.printStackTrace()
+    }
+
     // Can be used to cancel all ongoing operations.
-    private val coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+    private val coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob() + coroutineExceptionHandler)
 
     private val websiteLoader = WebsiteLoader()
 
@@ -87,9 +94,6 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
                 Notice("Not everything worked. Please send me the console log of obsidian.")
         } catch (e: AlreadyLoggedException) {
             Notice("Parsing error. Please send me the console log of obsidian.")
-        } catch (e: Exception) {
-            Notice("Something went badly wrong. Please send me the console log of obsidian.")
-            e.printStackTrace()
         }
     }
 
@@ -106,7 +110,8 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
         return logger
     }
 
-    private val userCorsMessage = "Couldn't reach the website. The Tool requires a CORS Proxy running on 8010 as described in the README."
+    private val userCorsMessage = "Couldn't reach the website. The Tool requires a CORS Proxy running on 8010 as described in the README. " +
+            "If you have the CORS proxy running then please send me the log output of obsidian for further analysis."
 
     private suspend fun importAndPersistCharacter(url: String): StepAwareLogger {
         val logger = StepAwareLogger("Character $url", app = app)
