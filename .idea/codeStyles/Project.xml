@@ -1,11 +1,16 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
+    <option name="RIGHT_MARGIN" value="200" />
+    <option name="SOFT_MARGINS" value="150" />
     <DB2CodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </DB2CodeStyleSettings>
     <DerbyCodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </DerbyCodeStyleSettings>
+    <H2CodeStyleSettings version="6">
+      <option name="USE_GENERIC_STYLE" value="true" />
+    </H2CodeStyleSettings>
     <H2CodeStyleSettings version="6">
       <option name="USE_GENERIC_STYLE" value="true" />
     </H2CodeStyleSettings>
