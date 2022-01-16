@@ -26,6 +26,7 @@ object CharacterMarkdownSerializer: AbstractMarkdownSerializer() {
         - **Race**: #$race
         - **Gender**: $gender
         - **Voice**: $voice
+        - **Seen in Towns**: 
     """.trimIndent().appendSectionBreak()
 
     private fun Character.generatePersonalitySection(): String {
@@ -34,8 +35,8 @@ object CharacterMarkdownSerializer: AbstractMarkdownSerializer() {
             sb = sb.append("\n- **Ideals**: ").append(ideals)
         if (flaws != null)
             sb = sb.append("\n- **Flaws**: ").append(flaws)
-        if (ideals != null)
-            sb = sb.append("\n- **Ideals**: ").append(ideals)
+        if (bonds != null)
+            sb = sb.append("\n- **Bonds**: ").append(bonds)
 
         sb.append("\n- **Personality**: ").append(personality)
 
