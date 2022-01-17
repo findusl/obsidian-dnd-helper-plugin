@@ -17,6 +17,7 @@ abstract class AbstractTownParser {
         var wealth: String = SERIALIZATION_ERROR_PLACEHOLDER
         var description: String = SERIALIZATION_ERROR_PLACEHOLDER
         var defenses: String = SERIALIZATION_ERROR_PLACEHOLDER
+        var organizations: List<String> = listOf(SERIALIZATION_ERROR_PLACEHOLDER)
         val services: MutableList<Service> = mutableListOf()
         val characters: MutableList<Character> = mutableListOf()
 
@@ -32,6 +33,7 @@ abstract class AbstractTownParser {
                 wealth = wealth,
                 description = description,
                 defenses = defenses,
+                organizations = organizations,
                 services = services,
                 characters = characters
             )

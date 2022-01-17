@@ -22,6 +22,7 @@ class KassoonTownParser(private val document: Document, private val logger: Step
             .dropWhile { !"townDesc".equals(it.id, ignoreCase = true) }
             .consumeDescription()
             .consumeDefenses()
+            .consumeOrganizations()
             // shop index
             .consumeOne { node ->
                 console.log("Consuming Shop names")
@@ -80,5 +81,14 @@ class KassoonTownParser(private val document: Document, private val logger: Step
         console.log("Consuming Town defense")
         val defenses = node.textContent?.cleanHtmlText()?.removePrefix("Defenses: ")
         townBuilder.defenses = logger.logIfNullAndDefaultFallback(defenses, "Defenses textContent")
+    }
+
+    private fun Sequence<Element>.consumeOrganizations() = consumeOne { node ->
+        console.log("Consuming Town organizations")
+        val organizations = node.textContent?.cleanHtmlText()?.removePrefix("Organizations: ").let {
+            logger.logIfNullAndDefaultFallback(it, "")
+        }
+
+        townBuilder.organizations = organizations.split(", ")
     }
 }

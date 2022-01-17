@@ -94,6 +94,8 @@ class DndPlugin(app: App, manifest: PluginManifest) : Plugin(app, manifest) {
                 Notice("Not everything worked. Please send me the console log of obsidian.")
         } catch (e: AlreadyLoggedException) {
             Notice("Parsing error. Please send me the console log of obsidian.")
+        } catch (e: Error) {
+            Notice("Parsing error. Got unhandled exception. Please send me the console log of obsidian.")
         }
     }
 

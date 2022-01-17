@@ -37,7 +37,7 @@ class KassoonServicesParser(private val townLogger: StepAwareLogger) {
             if (service == null) {
                 service = tryMatchHousing(serviceId, html)
                 if (service == null) {
-                    StepAwareLogger("serviceId", townLogger).logError("Could not match service.")
+                    StepAwareLogger("serviceId", townLogger).logError("Could not match service $serviceId.")
                     continue
                 }
             }
@@ -86,9 +86,9 @@ private fun shopRegex(shopId: String): Regex = Regex("""
 <u>Location:</u> ([^>]*)<br ?/?>[^<]*
 <u>Description:</u> ([^>]*)<br ?/?>[^<]*
 (?:<a target="_blank" href="[^"]*">Quests and Rumors</a> |)?[^<]*
-<a target="_blank" href="([^"]*)">Map</a>[^<]*
-<ul style="margin:0;"><u>Specials:</u>([\s\S]*?)
-</ul><br ?/?>[^<]*
+<(?:!--)?a target="_blank" href="([^"]*)">Map</a(?:--)?>[^<]*
+(?:<ul style="margin:0;"><u>Specials:</u>([\s\S]*?)
+</ul>)?<br ?/?>[^<]*
 <ul style="margin:0;"><u>Other Patrons:</u>([\s\S]*?)
 </ul>
 """.trimIndent().removeLineBreaks())
