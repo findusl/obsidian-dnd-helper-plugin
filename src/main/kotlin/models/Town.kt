@@ -10,6 +10,7 @@ data class Town(
     val wealth: String,
     val description: String,
     val defenses: String,
+    val organizations: List<String>,
     val services: List<Service>,
     val characters: List<Character>
 )
