@@ -11,6 +11,7 @@ object TownMarkdownSerializer: AbstractMarkdownSerializer() {
             .append(town.generateStatsSection())
             .append(town.generateDescriptionSection())
             .append(town.generateDefensesSection())
+            .append(town.generateOrganizationsSection())
             .append(town.generateServicesSection())
 
         var result = sb.toString()
@@ -42,6 +43,11 @@ object TownMarkdownSerializer: AbstractMarkdownSerializer() {
         ## Defenses
         $defenses
     """.trimIndent().appendSectionBreak()
+
+    private fun Town.generateOrganizationsSection() =
+        organizations.fold(StringBuilder("## Organizations:")) { sb, organization ->
+            sb + "\n- **$organization"
+        }.toString().appendSectionBreak()
 
     private fun Town.generateServicesSection() =
         services.fold(StringBuilder("## Services:")) { sb, service ->

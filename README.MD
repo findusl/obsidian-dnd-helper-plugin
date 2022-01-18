@@ -36,4 +36,6 @@ add the following to the `local.properties` file:
 
 Then run `gradle copyToObsidianVault` and the plugin will be built and copied to your vault. 
 Any missing folders on the path will be created. Then open obsidian and in the settings under 
-community plugins activate the plugin (may require a restart to detect the plugin).
+community plugins activate the plugin.
+
+Deploying and redeploying the plugin requires restarting obsidian to detect the changes.

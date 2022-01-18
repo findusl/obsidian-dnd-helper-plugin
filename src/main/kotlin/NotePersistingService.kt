@@ -60,6 +60,9 @@ class NotePersistingService(
     }
 
     suspend fun persistCharacter(character: Character, logger: StepAwareLogger): List<TAbstractFile> {
+        if (!vault.adapter.exists(settings.characterBasePath).await()) {
+            vault.createFolder(settings.characterBasePath)
+        }
         try {
             val sanitizedCharacterName = character.name.sanitizeFileName(logger)
             val characterFilePath = "${settings.characterBasePath}/${sanitizedCharacterName}.md"
