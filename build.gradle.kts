@@ -14,7 +14,7 @@ repositories {
 dependencies {
     implementation(npm("obsidian", "0.12.5", false))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.5")
 }
 
 kotlin {
