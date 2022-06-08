@@ -26,7 +26,7 @@ object CharacterMarkdownSerializer: AbstractMarkdownSerializer() {
         - **Race**: #$race
         - **Gender**: $gender
         - **Voice**: $voice
-        - **Seen in Towns**: 
+        - **Seen in Places**: 
     """.trimIndent().appendSectionBreak()
 
     private fun Character.generatePersonalitySection(): String {
