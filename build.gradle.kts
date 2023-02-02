@@ -1,7 +1,7 @@
 import java.util.Properties
 
 plugins {
-    kotlin("js") version "1.6.10"
+    kotlin("js") version "1.8.10"
 }
 
 group = "de.lehrbaum"
